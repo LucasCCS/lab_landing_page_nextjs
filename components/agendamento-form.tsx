@@ -65,11 +65,11 @@ export default function AgendamentoForm() {
   })
 
   const steps = [
-    { number: 1, title: "Serviço", description: "Tipo de equipamento" },
-    { number: 2, title: "Localização", description: "Endereço do atendimento" },
-    { number: 3, title: "Agendamento", description: "Data e horário" },
-    { number: 4, title: "Dados Pessoais", description: "Informações de contato" },
-    { number: 5, title: "Confirmação", description: "Revisão do agendamento" },
+    { number: 1, title: "Dados de Contato", description: "Informações de contato" },
+    { number: 2, title: "Produto", description: "Dados do Produto" },
+    { number: 3, title: "Localização", description: "Endereço do atendimento" },
+    { number: 4, title: "Agendamento", description: "Data e horário" },
+    { number: 5, title: "Confirmação", description: "Confirmação do agendamento" },
   ]
 
   const handleInputChange = (field: keyof FormData, value: any) => {
@@ -116,13 +116,15 @@ export default function AgendamentoForm() {
     // Aqui você implementaria o envio dos dados
     console.log("Dados do agendamento:", formData)
     alert("Agendamento realizado com sucesso!")
+    setCurrentStep(5)
   }
 
   return (
     <div className="space-y-8">
       {/* Progress Steps */}
       <div className="flex items-center justify-between">
-        {steps.map((step, index) => (
+        {steps.filter((step) => step.number !== 5).map((step, index) => (
+
           <div key={step.number} className="flex items-center">
             <div
               className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
@@ -141,11 +143,11 @@ export default function AgendamentoForm() {
               </p>
               <p className="text-xs text-gray-500">{step.description}</p>
             </div>
-            {index < steps.length - 1 && (
+            {/* {index < steps.length - 1 && (
               <div
-                className={`w-12 h-0.5 mx-4 transition-colors ${currentStep > step.number ? "bg-blue-600" : "bg-gray-300"}`}
+                className={`w-12 h-0.5 mx-5 transition-colors ${currentStep > step.number ? "bg-blue-600" : "bg-gray-300"}`}
               />
-            )}
+            )} */}
           </div>
         ))}
       </div>
@@ -153,8 +155,8 @@ export default function AgendamentoForm() {
       {/* Form Steps */}
       <div className="relative">
         <div className="absolute inset-0 bg-blue-500/5 rounded-3xl blur-xl"></div>
-        <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 border-b border-blue-200">
+        <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl overflow-hidden pt-0">
+          <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 border-b border-blue-200 pt-3">
             <CardTitle className="text-2xl text-blue-900">{steps[currentStep - 1].title}</CardTitle>
             <CardDescription className="text-blue-700">{steps[currentStep - 1].description}</CardDescription>
           </CardHeader>
@@ -162,66 +164,73 @@ export default function AgendamentoForm() {
             {/* Etapa 1 - Serviço */}
             {currentStep === 1 && (
               <div className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="servico" className="text-gray-700 font-medium">
-                    Tipo de Equipamento
-                  </Label>
-                  <Select value={formData.servico} onValueChange={(value) => handleInputChange("servico", value)}>
-                    <SelectTrigger className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl">
-                      <SelectValue placeholder="Selecione o equipamento" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="lavadora">Lavadora</SelectItem>
-                      <SelectItem value="secadora">Secadora</SelectItem>
-                      <SelectItem value="refrigerador">Refrigerador</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="nome" className="text-gray-700 font-medium">
+                  Nome Completo
+                </Label>
+                <Input
+                  id="nome"
+                  value={formData.nome}
+                  onChange={(e) => handleInputChange("nome", e.target.value)}
+                  placeholder="Seu nome completo"
+                  className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                />
+              </div>
 
+              <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="marca" className="text-gray-700 font-medium">
-                    Marca
+                  <Label htmlFor="telefone" className="text-gray-700 font-medium">
+                    Telefone
                   </Label>
                   <Input
-                    id="marca"
-                    value={formData.marca}
-                    onChange={(e) => handleInputChange("marca", e.target.value)}
-                    placeholder="Ex: Brastemp, Electrolux, LG..."
+                    id="telefone"
+                    value={formData.telefone}
+                    onChange={(e) => handleInputChange("telefone", e.target.value)}
+                    placeholder="(11) 99999-9999"
                     className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
                   />
                 </div>
-
                 <div className="space-y-2">
-                  <Label htmlFor="modelo" className="text-gray-700 font-medium">
-                    Modelo (opcional)
+                  <Label htmlFor="email" className="text-gray-700 font-medium">
+                    E-mail
                   </Label>
                   <Input
-                    id="modelo"
-                    value={formData.modelo}
-                    onChange={(e) => handleInputChange("modelo", e.target.value)}
-                    placeholder="Ex: BWL11A, LTE12..."
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    placeholder="seu@email.com"
                     className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="problema" className="text-gray-700 font-medium">
-                    Descrição do Problema
-                  </Label>
-                  <Textarea
-                    id="problema"
-                    value={formData.problema}
-                    onChange={(e) => handleInputChange("problema", e.target.value)}
-                    placeholder="Descreva o problema que está ocorrendo..."
-                    rows={4}
-                    className="border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
                   />
                 </div>
               </div>
+            </div>
+              
             )}
 
-            {/* Etapa 2 - Localização */}
+            {/* Etapa 2 - Produto */}
             {currentStep === 2 && (
+              <div className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="servico" className="text-gray-700 font-medium">
+                  Produto
+                </Label>
+                <Select value={formData.servico} onValueChange={(value) => handleInputChange("servico", value)}>
+                  <SelectTrigger className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl">
+                    <SelectValue placeholder="Selecione o equipamento" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="lavadora">Lavadora</SelectItem>
+                    <SelectItem value="secadora">Secadora</SelectItem>
+                    <SelectItem value="refrigerador">Refrigerador</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            )}
+
+            {/* Etapa 3 - Localização */}
+            {currentStep === 3 && (
               <div className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="cep" className="text-gray-700 font-medium">
@@ -323,8 +332,8 @@ export default function AgendamentoForm() {
               </div>
             )}
 
-            {/* Etapa 3 - Agendamento */}
-            {currentStep === 3 && (
+            {/* Etapa 4 - Agendamento */}
+            {currentStep === 4 && (
               <div className="space-y-6">
                 <div className="space-y-2">
                   <Label className="text-gray-700 font-medium">Data do Atendimento</Label>
@@ -373,66 +382,6 @@ export default function AgendamentoForm() {
                       </div>
                     ))}
                   </RadioGroup>
-                </div>
-              </div>
-            )}
-
-            {/* Etapa 4 - Dados Pessoais */}
-            {currentStep === 4 && (
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="nome" className="text-gray-700 font-medium">
-                    Nome Completo
-                  </Label>
-                  <Input
-                    id="nome"
-                    value={formData.nome}
-                    onChange={(e) => handleInputChange("nome", e.target.value)}
-                    placeholder="Seu nome completo"
-                    className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="telefone" className="text-gray-700 font-medium">
-                      Telefone
-                    </Label>
-                    <Input
-                      id="telefone"
-                      value={formData.telefone}
-                      onChange={(e) => handleInputChange("telefone", e.target.value)}
-                      placeholder="(11) 99999-9999"
-                      className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-gray-700 font-medium">
-                      E-mail
-                    </Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
-                      placeholder="seu@email.com"
-                      className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="observacoes" className="text-gray-700 font-medium">
-                    Observações Adicionais
-                  </Label>
-                  <Textarea
-                    id="observacoes"
-                    value={formData.observacoes}
-                    onChange={(e) => handleInputChange("observacoes", e.target.value)}
-                    placeholder="Informações adicionais que possam ajudar no atendimento..."
-                    rows={3}
-                    className="border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
-                  />
                 </div>
               </div>
             )}
@@ -500,6 +449,7 @@ export default function AgendamentoForm() {
 
       {/* Navigation Buttons */}
       <div className="flex justify-between">
+        {currentStep > 1 && currentStep !== 5 ? (
         <Button
           variant="outline"
           onClick={prevStep}
@@ -509,8 +459,8 @@ export default function AgendamentoForm() {
           <ChevronLeft className="w-5 h-5 mr-2" />
           Anterior
         </Button>
-
-        {currentStep < 5 ? (
+        ) : null}
+        {currentStep < 4  ? (
           <Button
             onClick={nextStep}
             className="h-12 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg transition-all duration-300 hover:scale-105"
@@ -518,7 +468,7 @@ export default function AgendamentoForm() {
             Próximo
             <ChevronRight className="w-5 h-5 ml-2" />
           </Button>
-        ) : (
+        ) : currentStep === 4 ? (
           <Button
             onClick={handleSubmit}
             className="h-12 px-6 bg-green-600 hover:bg-green-700 text-white rounded-xl shadow-lg transition-all duration-300 hover:scale-105"
@@ -526,7 +476,7 @@ export default function AgendamentoForm() {
             Confirmar Agendamento
             <Sparkles className="w-5 h-5 ml-2" />
           </Button>
-        )}
+        ) : null}
       </div>
     </div>
   )

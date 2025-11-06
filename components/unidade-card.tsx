@@ -19,7 +19,7 @@ export default function UnidadeCard({ unidade }: UnidadeCardProps) {
   return (
     <div className="group relative">
       <div className="absolute inset-0 bg-blue-500/10 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-      <Card className="relative h-full flex flex-col bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl overflow-hidden group-hover:shadow-2xl group-hover:shadow-blue-500/10 transition-all duration-500 hover:scale-105">
+      <Card className="relative h-full flex flex-col bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl overflow-hidden group-hover:shadow-2xl group-hover:shadow-blue-500/10 transition-all duration-500 hover:scale-105 pt-0">
         <div className="h-1 bg-blue-600"></div>
         <CardHeader className="pb-2">
           <div className="flex justify-between items-start">

@@ -5,13 +5,14 @@ import { unidades } from "@/data/unidades"
 import { notFound } from "next/navigation"
 
 interface UnidadePageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
-export default function UnidadePage({ params }: UnidadePageProps) {
-  const unidade = unidades.find((u) => u.id === params.id)
+export default async function UnidadePage({ params }: UnidadePageProps) {
+  const { id } = await params
+  const unidade = unidades.find((u) => u.id === id)
 
   if (!unidade) {
     notFound()

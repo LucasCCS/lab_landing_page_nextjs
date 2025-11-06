@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Calendar, MapPin, Wrench, CheckCircle } from "lucide-react"
 import Link from "next/link"
+import { config } from "@/data/config"
 
 export default function HowItWorks() {
   const steps = [
@@ -30,9 +31,9 @@ export default function HowItWorks() {
     <section id="como-funciona" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Como Funciona</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Como Funciona?</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Processo simples e transparente para resolver o problema do seu eletrodoméstico
+            Processo simples e transparente para resolver o problema do seu aparelho {config.product} {config.brand}
           </p>
         </div>
 
@@ -41,7 +42,7 @@ export default function HowItWorks() {
             <div key={index} className="text-center">
               <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <step.icon className="w-8 h-8 text-white" />
-              </div>
+              </div> 
               <h3 className="text-lg font-bold text-gray-900 mb-2">{step.title}</h3>
               <p className="text-gray-600">{step.description}</p>
             </div>

@@ -141,7 +141,7 @@ export default function UnidadesHome() {
               {/* Gradient Background */}
               <div className="absolute inset-0 bg-blue-500/10 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
 
-              <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl shadow-gray-900/5 rounded-3xl overflow-hidden group-hover:shadow-2xl group-hover:shadow-blue-500/10 transition-all duration-500 hover:scale-105">
+              <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl shadow-gray-900/5 rounded-3xl overflow-hidden group-hover:shadow-2xl group-hover:shadow-blue-500/10 transition-all duration-500 hover:scale-105 pt-0">
                 {/* Top Gradient Bar */}
                 <div className="h-1 bg-blue-600"></div>
 
@@ -351,7 +351,7 @@ export default function UnidadesHome() {
                     asChild
                     variant="outline"
                     size="lg"
-                    className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
+                    className="border-white/30 bg-white/10 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
                   >
                     <Link href="/unidades">Ver Todas as Unidades</Link>
                   </Button>

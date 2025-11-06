@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button"
-import { CheckCircle, Clock, Shield, Sparkles } from "lucide-react"
+import { Sparkles } from "lucide-react"
 import Link from "next/link"
 import UnidadeQuickSearch from "@/components/unidade-quick-search"
+import { content } from "@/data/content"
+import { config } from "@/data/config"
 
 export default function Hero() {
   return (
@@ -30,18 +32,17 @@ export default function Hero() {
           <div className="space-y-8">
             <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
               <Sparkles className="w-4 h-4 text-blue-200 mr-2" />
-              <span className="text-white/90 text-sm font-medium">Assistência Técnica Premium</span>
+              <span className="text-white/90 text-sm font-medium">{content.hero.subtitle}</span>
             </div>
 
             <div className="space-y-6">
               <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
-                Assistência
-                <span className="block text-blue-200">Técnica</span>
-                <span className="block text-blue-100">Especializada</span>
+                {content.hero.title}
+                { config.product && <span className="block text-blue-200">{config.product}</span> }
+                { config.brand && <span className="block text-blue-100">{config.brand}</span> }
               </h1>
               <p className="text-xl text-white/80 leading-relaxed max-w-lg">
-                Serviços de reparo e manutenção para lavadoras, secadoras e refrigeradores. Técnicos qualificados, peças
-                originais e garantia estendida.
+                {content.hero.description}
               </p>
             </div>
 
@@ -58,18 +59,14 @@ export default function Hero() {
               <Button
                 variant="outline"
                 size="lg"
-                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
+                className="border-white/30 bg-white/10 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
               >
                 Ver Serviços
               </Button>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {[
-                { icon: CheckCircle, text: "Técnicos Certificados", color: "text-green-300" },
-                { icon: Clock, text: "Atendimento 24h", color: "text-blue-300" },
-                { icon: Shield, text: "Garantia Estendida", color: "text-blue-200" },
-              ].map((item, index) => (
+              {content.hero.features.map((item, index) => (
                 <div
                   key={index}
                   className="flex items-center space-x-3 p-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10"
@@ -100,18 +97,14 @@ export default function Hero() {
                 </div>
 
                 <div className="space-y-4 mb-8">
-                  {[
-                    { service: "Lavadoras", price: "R$ 80" },
-                    { service: "Secadoras", price: "R$ 90" },
-                    { service: "Refrigeradores", price: "R$ 100" },
-                  ].map((item, index) => (
+                  {content.hero.services.map((item, index) => (
                     <div
                       key={index}
                       className="group relative overflow-hidden rounded-xl bg-gray-50 hover:bg-blue-50 p-4 hover:shadow-lg transition-all duration-300"
                     >
                       <div className="relative flex items-center justify-between">
                         <span className="font-semibold text-gray-900">{item.service}</span>
-                        <span className="font-bold text-blue-600">A partir de {item.price}</span>
+                        <span className="font-bold text-blue-600">Orçamento sem taxa de visita</span>
                       </div>
                     </div>
                   ))}
