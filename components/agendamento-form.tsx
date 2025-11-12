@@ -13,6 +13,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon, ChevronLeft, ChevronRight, MapPin, CheckCircle, Sparkles } from "lucide-react"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
+import LavaSeca from "@/asset/icons/lava-seca.svg?component";
+import Secadora from "@/asset/icons/secadora.svg?component";
+import Lavadora from "@/asset/icons/lavadora.svg?component";
+import MaquinaDeLavar from "@/asset/icons/maquina-de-lavar.svg?component";
+
 
 interface FormData {
   // Etapa 1 - Serviço
@@ -71,6 +76,25 @@ export default function AgendamentoForm() {
     { number: 4, title: "Agendamento", description: "Data e horário" },
     { number: 5, title: "Confirmação", description: "Confirmação do agendamento" },
   ]
+
+  const products = [
+    {
+      name: "Lava e Seca",
+      image: LavaSeca,
+    },
+    {
+      name: "Secadora",
+      image: Secadora,
+    },
+    {
+      name: "Lavadora",
+      image: Lavadora,
+    },
+    {
+      name: "Máquina de Lavar",
+      image: MaquinaDeLavar,
+    }
+  ];
 
   const handleInputChange = (field: keyof FormData, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -212,19 +236,30 @@ export default function AgendamentoForm() {
             {currentStep === 2 && (
               <div className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="servico" className="text-gray-700 font-medium">
-                  Produto
+                <Label htmlFor="servico" className="text-gray-400 font-medium mb-5">
+                  Selecione um produto
                 </Label>
-                <Select value={formData.servico} onValueChange={(value) => handleInputChange("servico", value)}>
-                  <SelectTrigger className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl">
-                    <SelectValue placeholder="Selecione o equipamento" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="lavadora">Lavadora</SelectItem>
-                    <SelectItem value="secadora">Secadora</SelectItem>
-                    <SelectItem value="refrigerador">Refrigerador</SelectItem>
-                  </SelectContent>
-                </Select>
+                <div className="flex gap-4">
+                  {products.map((product, index) => {
+                    const Icon = product.image;
+                    const isSelected = formData.servico === product.name;
+                    return (
+                      <div 
+                        onClick={() => handleInputChange("servico", product.name)}
+                        className={`w-50 cursor-pointer transition-all duration-300 shadow rounded-xl p-4 
+                        text-center align-middle justify-center items-center flex flex-col gap-2
+                        ${isSelected 
+                          ? "opacity-100 shadow-lg border-2 border-blue-500 bg-blue-50 text-blue-600 fill-blue-600" 
+                          : "opacity-80 hover:opacity-100 shadow-sm hover:shadow-lg border-2 border-transparent text-gray-400 hover:text-blue-400 fill-gray-400 hover:fill-blue-400"
+                        }`}
+                        key={'key-' + index}
+                      >
+                        <Icon className="w-15" />
+                        <Label htmlFor={product.name} className="font-medium mt-2 cursor-pointer">{product.name}</Label>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
             </div>
             )}
@@ -373,10 +408,10 @@ export default function AgendamentoForm() {
                     ].map((periodo) => (
                       <div
                         key={periodo.value}
-                        className="flex items-center space-x-3 p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors"
+                        className="flex items-center pl-4 space-x-3 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors"
                       >
                         <RadioGroupItem value={periodo.value} id={periodo.id} />
-                        <Label htmlFor={periodo.id} className="flex-1 cursor-pointer font-medium text-gray-700">
+                        <Label htmlFor={periodo.id} className="flex-1 py-4 cursor-pointer font-medium text-gray-700">
                           {periodo.label}
                         </Label>
                       </div>
