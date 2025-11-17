@@ -112,7 +112,7 @@ export default function Testimonials() {
   const totalReviews = testimonials.length
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white rounded-md">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">

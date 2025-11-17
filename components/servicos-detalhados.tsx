@@ -268,7 +268,7 @@ export default function ServicosDetalhados() {
         {filteredServicos.map((servico) => (
           <div key={servico.id} className="group relative">
             <div className="absolute inset-0 bg-blue-500/10 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-            <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl overflow-hidden group-hover:shadow-2xl group-hover:shadow-blue-500/10 transition-all duration-500 hover:scale-105 h-full flex flex-col">
+            <Card className="relative pt-0 bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl overflow-hidden group-hover:shadow-2xl group-hover:shadow-blue-500/10 transition-all duration-500 hover:scale-105 h-full flex flex-col">
               <div className="h-1 bg-blue-600"></div>
 
               <CardHeader className="pb-4">
@@ -405,7 +405,7 @@ export default function ServicosDetalhados() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
+                className="border-white/30 text-red-600 hover:text-red-500 hover:bg-white/60 backdrop-blur-sm transition-all duration-300"
               >
                 <Link href="/agendamento?urgente=true">Agendar Emergência</Link>
               </Button>

@@ -20,7 +20,7 @@ export default function Header() {
             <Link href="/servicos" className="text-gray-600 hover:text-blue-600 transition-colors">
               Serviços
             </Link>
-            <Link href="#como-funciona" className="text-gray-600 hover:text-blue-600 transition-colors">
+            <Link href="/#como-funciona" className="text-gray-600 hover:text-blue-600 transition-colors">
               Como Funciona
             </Link>
             <Link href="/unidades" className="text-gray-600 hover:text-blue-600 transition-colors">
@@ -36,7 +36,7 @@ export default function Header() {
               <Phone className="w-4 h-4" />
               <span>(11) 3000-0000</span>
             </div>
-            <Button asChild>
+            <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white hover:scale-105">
               <Link href="/agendamento">Agendar Serviço</Link>
             </Button>
           </div>

@@ -5,23 +5,6 @@ import Testimonials from "@/components/testimonials"
 export default function AvaliacoesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
-
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <svg width="60" height="60" viewBox="0 0 60 60" className="w-full h-full">
-          <defs>
-            <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-              <circle cx="30" cy="30" r="1" fill="white" fillOpacity="0.1" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-      </div>
 
       <Header />
 
@@ -48,7 +31,7 @@ export default function AvaliacoesPage() {
           </div>
 
           {/* Review Form Section */}
-          <div className="relative">
+          {/* <div className="relative">
             <div className="absolute inset-0 bg-blue-500/20 rounded-3xl blur-xl"></div>
             <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl shadow-blue-500/10 p-8">
               <div className="text-center mb-8">
@@ -57,7 +40,7 @@ export default function AvaliacoesPage() {
               </div>
               <ReviewForm />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
