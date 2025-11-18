@@ -5,10 +5,12 @@ import Testimonials from "@/components/testimonials"
 import HowItWorks from "@/components/how-it-works"
 import Footer from "@/components/footer"
 import UnidadesHome from "@/components/unidades-home"
+import { getTheme } from "@/lib/get-theme"
 
 export default function Home() {
+  const theme = getTheme();
   return (
-    <div className="min-h-screen bg-white">
+    <div className={theme.page.home}>
       <Header />
       <Hero />
       <Services />

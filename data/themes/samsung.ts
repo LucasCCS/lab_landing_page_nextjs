@@ -414,6 +414,142 @@ export const samsung = {
             text: 'text-gray-400'
         }
     },
+    page: {
+        home: 'min-h-screen bg-white',
+        hero: {
+            container: 'min-h-screen bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden',
+            backgroundEffects: {
+                container: 'absolute inset-0',
+                effect1: 'absolute top-20 left-20 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-pulse',
+                effect2: 'absolute bottom-20 right-20 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl animate-pulse delay-1000'
+            },
+            gridPattern: {
+                container: 'absolute inset-0 opacity-20',
+                svg: 'w-full h-full'
+            }
+        },
+        content: {
+            container: 'relative container mx-auto px-4 py-12',
+            wrapper: 'max-w-4xl mx-auto',
+            wrapperLarge: 'max-w-6xl mx-auto',
+            wrapperXLarge: 'max-w-7xl mx-auto'
+        },
+        header: {
+            container: 'text-center mb-12',
+            badge: 'inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-6',
+            badgeText: 'text-white/90 text-sm font-medium',
+            title: 'text-4xl lg:text-5xl font-bold text-white mb-4',
+            description: 'text-white/80 text-lg max-w-2xl mx-auto'
+        },
+        card: {
+            container: 'relative',
+            containerWithMargin: 'relative mb-16',
+            glow: 'absolute inset-0 bg-blue-500/20 rounded-3xl blur-xl',
+            card: 'relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl shadow-blue-500/10 p-8'
+        },
+        admin: {
+            container: 'min-h-screen bg-gray-50',
+            login: {
+                container: 'relative flex items-center justify-center min-h-screen p-4'
+            }
+        }
+    },
+    unidadesList: {
+        container: 'space-y-8',
+        filters: {
+            container: 'relative',
+            glow: 'absolute inset-0 bg-blue-500/5 rounded-3xl blur-xl',
+            card: 'relative bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl',
+            content: 'p-6',
+            grid: 'grid md:grid-cols-3 gap-4',
+            input: {
+                container: 'relative',
+                icon: 'absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5',
+                field: 'pl-12 h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl'
+            },
+            select: {
+                container: 'flex items-center space-x-2',
+                icon: 'text-gray-400 h-5 w-5',
+                field: 'flex h-12 w-full rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:ring-blue-500/20 focus:outline-none'
+            }
+        },
+        results: {
+            container: 'flex justify-between items-center mb-6',
+            count: 'text-gray-700 font-medium',
+            tabs: {
+                container: 'w-[300px]',
+                list: 'bg-blue-50 border border-blue-200',
+                trigger: {
+                    base: 'flex items-center',
+                    active: 'data-[state=active]:bg-blue-600 data-[state=active]:text-white',
+                    icon: 'mr-2 h-4 w-4'
+                }
+            },
+            content: {
+                lista: 'mt-0',
+                grid: 'grid md:grid-cols-2 gap-6',
+                mapa: {
+                    container: 'mt-0',
+                    wrapper: 'relative',
+                    glow: 'absolute inset-0 bg-blue-500/5 rounded-3xl blur-xl',
+                    map: 'relative h-[600px] rounded-3xl overflow-hidden shadow-xl'
+                }
+            }
+        }
+    },
+    unidadeCard: {
+        container: 'group relative',
+        glow: 'absolute inset-0 bg-blue-500/10 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500',
+        card: 'relative h-full flex flex-col bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl overflow-hidden group-hover:shadow-2xl group-hover:shadow-blue-500/10 transition-all duration-500 hover:scale-105 pt-0',
+        topBar: 'h-1 bg-blue-600',
+        header: {
+            container: 'pb-2',
+            titleRow: 'flex justify-between items-start',
+            title: 'text-xl group-hover:text-blue-600 transition-colors',
+            rating: {
+                container: 'flex items-center space-x-1 bg-yellow-50 px-2 py-1 rounded-full',
+                text: 'text-sm font-medium ml-1 text-yellow-600'
+            },
+            location: {
+                container: 'flex items-center text-gray-600 text-sm',
+                icon: 'w-4 h-4 mr-1 text-blue-500'
+            }
+        },
+        content: 'flex-grow flex flex-col justify-between space-y-4',
+        addressBox: {
+            container: 'bg-gray-50 rounded-2xl p-4',
+            label: 'text-sm text-gray-600 mb-1 font-medium',
+            value: 'text-sm text-gray-800'
+        },
+        scheduleBox: {
+            container: 'bg-blue-50 rounded-2xl p-4',
+            wrapper: 'flex items-start space-x-2',
+            icon: 'w-4 h-4 text-blue-500 mt-0.5',
+            time: 'text-gray-800 font-medium',
+            saturday: 'text-gray-600',
+            domingo: 'text-gray-600'
+        },
+        specialties: {
+            label: 'text-sm text-gray-600 mb-2 font-medium',
+            container: 'flex flex-wrap gap-2',
+            badge: 'border-blue-200 bg-blue-50 text-blue-700'
+        },
+        phoneBox: {
+            container: 'bg-green-50 rounded-2xl p-4',
+            wrapper: 'flex items-center space-x-2',
+            icon: 'w-4 h-4 text-green-500',
+            text: 'text-sm font-medium text-gray-800'
+        },
+        footer: {
+            container: 'flex justify-between items-center pt-4 border-t border-gray-100',
+            reviews: 'text-sm text-gray-600',
+            button: 'border-blue-200 hover:bg-blue-50 rounded-xl'
+        },
+        star: {
+            filled: 'text-yellow-400 fill-current',
+            empty: 'text-gray-300'
+        }
+    },
     button: {
         default: 'bg-white text-blue-600 hover:bg-blue-50 border-0 shadow-2xl shadow-blue-500/25 transition-all duration-300',
         secondary: 'border-white/30 bg-white/10 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300',

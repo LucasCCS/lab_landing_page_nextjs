@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 import AdminDashboard from "@/components/admin/admin-dashboard"
 import AdminHeader from "@/components/admin/admin-header"
+import { getTheme } from "@/lib/get-theme"
 
 // Simulação de autenticação - em produção, usar um sistema real
 function checkAuth() {
@@ -9,6 +10,7 @@ function checkAuth() {
 }
 
 export default function AdminPage() {
+  const theme = getTheme();
   const isAuthenticated = checkAuth()
 
   if (!isAuthenticated) {
@@ -16,7 +18,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={theme.page.admin.container}>
       <AdminHeader />
       <AdminDashboard />
     </div>

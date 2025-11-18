@@ -8,8 +8,10 @@ import { MapPin, Search, MapIcon, ListFilter } from "lucide-react"
 import UnidadeMap from "@/components/unidade-map"
 import UnidadeCard from "@/components/unidade-card"
 import { unidades } from "@/data/unidades"
+import { getTheme } from "@/lib/get-theme"
 
 export default function UnidadesList() {
+  const theme = getTheme();
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedRegion, setSelectedRegion] = useState("todas")
   const [selectedSpecialty, setSelectedSpecialty] = useState("todas")
@@ -36,27 +38,27 @@ export default function UnidadesList() {
   })
 
   return (
-    <div className="space-y-8">
+    <div className={theme.unidadesList.container}>
       {/* Filtros */}
-      <div className="relative">
-        <div className="absolute inset-0 bg-blue-500/5 rounded-3xl blur-xl"></div>
-        <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl">
-          <CardContent className="p-6">
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+      <div className={theme.unidadesList.filters.container}>
+        <div className={theme.unidadesList.filters.glow}></div>
+        <Card className={theme.unidadesList.filters.card}>
+          <CardContent className={theme.unidadesList.filters.content}>
+            <div className={theme.unidadesList.filters.grid}>
+              <div className={theme.unidadesList.filters.input.container}>
+                <Search className={theme.unidadesList.filters.input.icon} />
                 <Input
                   placeholder="Buscar por nome ou endereço..."
-                  className="pl-12 h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                  className={theme.unidadesList.filters.input.field}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
 
-              <div className="flex items-center space-x-2">
-                <MapPin className="text-gray-400 h-5 w-5" />
+              <div className={theme.unidadesList.filters.select.container}>
+                <MapPin className={theme.unidadesList.filters.select.icon} />
                 <select
-                  className="flex h-12 w-full rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:ring-blue-500/20 focus:outline-none"
+                  className={theme.unidadesList.filters.select.field}
                   value={selectedRegion}
                   onChange={(e) => setSelectedRegion(e.target.value)}
                 >
@@ -68,10 +70,10 @@ export default function UnidadesList() {
                 </select>
               </div>
 
-              <div className="flex items-center space-x-2">
-                <ListFilter className="text-gray-400 h-5 w-5" />
+              <div className={theme.unidadesList.filters.select.container}>
+                <ListFilter className={theme.unidadesList.filters.select.icon} />
                 <select
-                  className="flex h-12 w-full rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:ring-blue-500/20 focus:outline-none"
+                  className={theme.unidadesList.filters.select.field}
                   value={selectedSpecialty}
                   onChange={(e) => setSelectedSpecialty(e.target.value)}
                 >
@@ -89,24 +91,24 @@ export default function UnidadesList() {
 
       {/* Resultados */}
       <div>
-        <div className="flex justify-between items-center mb-6">
-          <p className="text-gray-700 font-medium">
+        <div className={theme.unidadesList.results.container}>
+          <p className={theme.unidadesList.results.count}>
             {filteredUnidades.length} {filteredUnidades.length === 1 ? "unidade encontrada" : "unidades encontradas"}
           </p>
-          <Tabs defaultValue="lista" className="w-[300px]">
-            <TabsList className="bg-blue-50 border border-blue-200">
+          <Tabs defaultValue="lista" className={theme.unidadesList.results.tabs.container}>
+            <TabsList className={theme.unidadesList.results.tabs.list}>
               <TabsTrigger
                 value="lista"
-                className="flex items-center data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+                className={`${theme.unidadesList.results.tabs.trigger.base} ${theme.unidadesList.results.tabs.trigger.active}`}
               >
-                <ListFilter className="mr-2 h-4 w-4" />
+                <ListFilter className={theme.unidadesList.results.tabs.trigger.icon} />
                 Lista
               </TabsTrigger>
               <TabsTrigger
                 value="mapa"
-                className="flex items-center data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+                className={`${theme.unidadesList.results.tabs.trigger.base} ${theme.unidadesList.results.tabs.trigger.active}`}
               >
-                <MapIcon className="mr-2 h-4 w-4" />
+                <MapIcon className={theme.unidadesList.results.tabs.trigger.icon} />
                 Mapa
               </TabsTrigger>
             </TabsList>
@@ -114,18 +116,18 @@ export default function UnidadesList() {
         </div>
 
         <Tabs defaultValue="lista" className="w-full">
-          <TabsContent value="lista" className="mt-0">
-            <div className="grid md:grid-cols-2 gap-6">
+          <TabsContent value="lista" className={theme.unidadesList.results.content.lista}>
+            <div className={theme.unidadesList.results.content.grid}>
               {filteredUnidades.map((unidade) => (
                 <UnidadeCard key={unidade.id} unidade={unidade} />
               ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="mapa" className="mt-0">
-            <div className="relative">
-              <div className="absolute inset-0 bg-blue-500/5 rounded-3xl blur-xl"></div>
-              <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-xl">
+          <TabsContent value="mapa" className={theme.unidadesList.results.content.mapa.container}>
+            <div className={theme.unidadesList.results.content.mapa.wrapper}>
+              <div className={theme.unidadesList.results.content.mapa.glow}></div>
+              <div className={theme.unidadesList.results.content.mapa.map}>
                 <UnidadeMap unidades={filteredUnidades} />
               </div>
             </div>

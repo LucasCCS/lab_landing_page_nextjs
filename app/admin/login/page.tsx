@@ -1,17 +1,19 @@
 import AdminLogin from "@/components/admin/admin-login"
+import { getTheme } from "@/lib/get-theme"
 
 export default function AdminLoginPage() {
+  const theme = getTheme();
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden">
+    <div className={theme.page.hero.container}>
       {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div className={theme.page.hero.backgroundEffects.container}>
+        <div className={theme.page.hero.backgroundEffects.effect1}></div>
+        <div className={theme.page.hero.backgroundEffects.effect2}></div>
       </div>
 
       {/* Grid Pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <svg width="60" height="60" viewBox="0 0 60 60" className="w-full h-full">
+      <div className={theme.page.hero.gridPattern.container}>
+        <svg width="60" height="60" viewBox="0 0 60 60" className={theme.page.hero.gridPattern.svg}>
           <defs>
             <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
               <circle cx="30" cy="30" r="1" fill="white" fillOpacity="0.1" />
@@ -21,7 +23,7 @@ export default function AdminLoginPage() {
         </svg>
       </div>
 
-      <div className="relative flex items-center justify-center min-h-screen p-4">
+      <div className={theme.page.admin.login.container}>
         <AdminLogin />
       </div>
     </div>
