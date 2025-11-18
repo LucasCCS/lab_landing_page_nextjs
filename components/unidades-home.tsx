@@ -20,8 +20,10 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { unidades } from "@/data/unidades"
+import { getTheme } from "@/lib/get-theme"
 
 export default function UnidadesHome() {
+  const theme = getTheme();
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedRegion, setSelectedRegion] = useState("todas")
 
@@ -43,14 +45,14 @@ export default function UnidadesHome() {
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
-      <Star key={index} className={`w-3 h-3 ${index < rating ? "text-yellow-400 fill-current" : "text-gray-300"}`} />
+      <Star key={index} className={`w-3 h-3 ${index < rating ? theme.unidadesHome.unitCard.rating.star.filled : theme.unidadesHome.unitCard.rating.star.empty}`} />
     ))
   }
 
   return (
-    <section className="py-24 bg-gray-50 relative overflow-hidden">
+    <section className={theme.unidadesHome.section}>
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-30">
+      <div className={theme.unidadesHome.backgroundPattern}>
         <svg width="100" height="100" viewBox="0 0 100 100" className="w-full h-full">
           <defs>
             <pattern id="dots" width="100" height="100" patternUnits="userSpaceOnUse">
@@ -68,43 +70,43 @@ export default function UnidadesHome() {
 
       <div className="relative container mx-auto px-4">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full mb-6">
-            <MapPin className="w-4 h-4 text-blue-600 mr-2" />
-            <span className="text-blue-800 text-sm font-semibold">Nossas Unidades</span>
+          <div className={theme.unidadesHome.badge.container}>
+            <MapPin className={theme.unidadesHome.badge.icon} />
+            <span className={theme.unidadesHome.badge.text}>Nossas Unidades</span>
           </div>
 
-          <h2 className="text-4xl lg:text-6xl font-bold mb-6">
-            <span className="text-gray-900">Encontre a Unidade</span>
+          <h2 className={theme.unidadesHome.title.container}>
+            <span className={theme.unidadesHome.title.part1}>Encontre a Unidade</span>
             <br />
-            <span className="text-blue-600">Mais Próxima</span>
+            <span className={theme.unidadesHome.title.part2}>Mais Próxima</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className={theme.unidadesHome.description}>
             Assistência técnica especializada em todas as nossas unidades
           </p>
         </div>
 
         {/* Modern Search Card */}
         <div className="relative mb-12">
-          <div className="absolute inset-0 bg-blue-500/20 rounded-3xl blur-xl"></div>
-          <Card className="relative bg-white/80 backdrop-blur-xl border-0 shadow-2xl shadow-blue-500/10 rounded-3xl overflow-hidden">
+          <div className={theme.unidadesHome.searchCard.glow}></div>
+          <Card className={theme.unidadesHome.searchCard.container}>
             <CardContent className="p-8">
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="md:col-span-2">
-                  <div className="relative group">
-                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 group-focus-within:text-blue-500 transition-colors" />
+                  <div className={theme.unidadesHome.searchCard.input.container}>
+                    <Search className={theme.unidadesHome.searchCard.input.icon} />
                     <Input
                       placeholder="Buscar por nome, bairro ou endereço..."
-                      className="pl-12 h-14 text-lg border-0 bg-gray-50/50 focus:bg-white focus:ring-2 focus:ring-blue-500/20 rounded-2xl transition-all duration-300"
+                      className={theme.unidadesHome.searchCard.input.field}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                   </div>
                 </div>
 
-                <div className="relative group">
-                  <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 group-focus-within:text-blue-500 transition-colors z-10" />
+                <div className={theme.unidadesHome.searchCard.select.container}>
+                  <MapPin className={theme.unidadesHome.searchCard.select.icon} />
                   <select
-                    className="w-full h-14 pl-12 pr-4 text-lg border-0 bg-gray-50/50 focus:bg-white focus:ring-2 focus:ring-blue-500/20 rounded-2xl transition-all duration-300 appearance-none cursor-pointer"
+                    className={theme.unidadesHome.searchCard.select.field}
                     value={selectedRegion}
                     onChange={(e) => setSelectedRegion(e.target.value)}
                   >
@@ -120,7 +122,7 @@ export default function UnidadesHome() {
               {(searchTerm || selectedRegion !== "todas") && (
                 <div className="mt-6 pt-6 border-t border-gray-200/50">
                   <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <div className={theme.unidadesHome.searchCard.resultIndicator}></div>
                     <p className="text-gray-600 font-medium">
                       {filteredUnidades.length}{" "}
                       {filteredUnidades.length === 1 ? "unidade encontrada" : "unidades encontradas"}
@@ -139,43 +141,43 @@ export default function UnidadesHome() {
           {displayedUnidades.map((unidade, index) => (
             <div key={unidade.id} className="group relative">
               {/* Gradient Background */}
-              <div className="absolute inset-0 bg-blue-500/10 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
+              <div className={theme.unidadesHome.unitCard.glow}></div>
 
-              <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl shadow-gray-900/5 rounded-3xl overflow-hidden group-hover:shadow-2xl group-hover:shadow-blue-500/10 transition-all duration-500 hover:scale-105 pt-0">
+              <Card className={theme.unidadesHome.unitCard.container}>
                 {/* Top Gradient Bar */}
-                <div className="h-1 bg-blue-600"></div>
+                <div className={theme.unidadesHome.unitCard.topBar}></div>
 
                 <CardHeader className="pb-4">
                   <div className="flex justify-between items-start">
                     <div className="space-y-2">
-                      <CardTitle className="text-xl group-hover:text-blue-600 transition-colors duration-300">
+                      <CardTitle className={theme.unidadesHome.unitCard.title}>
                         {unidade.nome}
                       </CardTitle>
-                      <div className="flex items-center text-gray-600 text-sm">
-                        <MapPin className="w-4 h-4 mr-2 text-blue-500" />
+                      <div className={theme.unidadesHome.unitCard.location.container}>
+                        <MapPin className={theme.unidadesHome.unitCard.location.icon} />
                         <span>
                           {unidade.bairro}, {unidade.regiao}
                         </span>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-1 bg-yellow-50 px-3 py-1 rounded-full">
+                    <div className={theme.unidadesHome.unitCard.rating.container}>
                       {renderStars(Math.round(unidade.avaliacao))}
-                      <span className="text-sm font-bold ml-1 text-yellow-600">{unidade.avaliacao.toFixed(1)}</span>
+                      <span className={theme.unidadesHome.unitCard.rating.text}>{unidade.avaliacao.toFixed(1)}</span>
                     </div>
                   </div>
                 </CardHeader>
 
                 <CardContent className="space-y-4">
-                  <div className="bg-gray-50 rounded-2xl p-4">
-                    <p className="text-sm text-gray-600 mb-1 font-medium">Endereço:</p>
-                    <p className="text-sm text-gray-800">{unidade.endereco}</p>
+                  <div className={theme.unidadesHome.unitCard.addressBox.container}>
+                    <p className={theme.unidadesHome.unitCard.addressBox.label}>Endereço:</p>
+                    <p className={theme.unidadesHome.unitCard.addressBox.value}>{unidade.endereco}</p>
                   </div>
 
-                  <div className="flex items-start space-x-3 bg-blue-50 rounded-2xl p-4">
-                    <Clock className="w-4 h-4 text-blue-500 mt-0.5" />
+                  <div className={theme.unidadesHome.unitCard.scheduleBox.container}>
+                    <Clock className={theme.unidadesHome.unitCard.scheduleBox.icon} />
                     <div className="text-sm">
-                      <p className="text-gray-800 font-medium">{unidade.horario.diasUteis}</p>
-                      <p className="text-gray-600">{unidade.horario.sabado}</p>
+                      <p className={theme.unidadesHome.unitCard.scheduleBox.time}>{unidade.horario.diasUteis}</p>
+                      <p className={theme.unidadesHome.unitCard.scheduleBox.saturday}>{unidade.horario.sabado}</p>
                     </div>
                   </div>
 
@@ -185,13 +187,13 @@ export default function UnidadesHome() {
                         <Badge
                           key={especialidade}
                           variant="outline"
-                          className="text-xs border-blue-200 bg-blue-50 text-blue-700"
+                          className={theme.unidadesHome.unitCard.specialtyBadge.active}
                         >
                           {especialidade}
                         </Badge>
                       ))}
                       {unidade.especialidades.length > 3 && (
-                        <Badge variant="outline" className="text-xs bg-gray-100 text-gray-700 border-gray-200">
+                        <Badge variant="outline" className={theme.unidadesHome.unitCard.specialtyBadge.more}>
                           +{unidade.especialidades.length - 3}
                         </Badge>
                       )}
@@ -200,11 +202,11 @@ export default function UnidadesHome() {
 
                   <div className="flex items-center justify-between pt-2 border-t border-gray-100">
                     <div className="flex items-center space-x-2">
-                      <Phone className="w-4 h-4 text-green-500" />
-                      <span className="text-sm text-gray-600 font-medium">{unidade.telefone}</span>
+                      <Phone className={theme.unidadesHome.unitCard.contact.icon} />
+                      <span className={theme.unidadesHome.unitCard.contact.text}>{unidade.telefone}</span>
                     </div>
                     <div className="text-sm text-gray-500 flex items-center">
-                      <Users className="w-3 h-3 mr-1" />
+                      <Users className={theme.unidadesHome.unitCard.reviewIcon} />
                       {unidade.avaliacoes.length} avaliações
                     </div>
                   </div>
@@ -213,7 +215,7 @@ export default function UnidadesHome() {
                     <Button
                       asChild
                       size="sm"
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition-all duration-300"
+                      className={theme.unidadesHome.unitCard.button.primary}
                     >
                       <Link href={`/agendamento?unidade=${unidade.id}`}>Agendar</Link>
                     </Button>
@@ -221,7 +223,7 @@ export default function UnidadesHome() {
                       asChild
                       size="sm"
                       variant="outline"
-                      className="border-gray-200 hover:bg-gray-50 transition-all duration-300"
+                      className={theme.unidadesHome.unitCard.button.outline}
                     >
                       <Link href={`/unidades/${unidade.id}`}>
                         <ExternalLink className="w-3 h-3" />
@@ -237,14 +239,14 @@ export default function UnidadesHome() {
         {/* No Results State */}
         {filteredUnidades.length === 0 && (searchTerm || selectedRegion !== "todas") && (
           <div className="relative">
-            <div className="absolute inset-0 bg-gray-500/10 rounded-3xl blur-xl"></div>
-            <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl">
+            <div className={theme.unidadesHome.noResults.glow}></div>
+            <Card className={theme.unidadesHome.noResults.container}>
               <CardContent className="text-center py-16">
-                <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <MapPin className="w-10 h-10 text-gray-400" />
+                <div className={theme.unidadesHome.noResults.iconContainer}>
+                  <MapPin className={theme.unidadesHome.noResults.icon} />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Nenhuma unidade encontrada</h3>
-                <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                <h3 className={theme.unidadesHome.noResults.title}>Nenhuma unidade encontrada</h3>
+                <p className={theme.unidadesHome.noResults.description}>
                   Não encontramos unidades que correspondam aos seus critérios de busca. Tente ajustar os filtros.
                 </p>
                 <Button
@@ -253,7 +255,7 @@ export default function UnidadesHome() {
                     setSearchTerm("")
                     setSelectedRegion("todas")
                   }}
-                  className="bg-blue-50 border-blue-200 hover:bg-blue-100"
+                  className={theme.unidadesHome.noResults.button}
                 >
                   Limpar Filtros
                 </Button>
@@ -305,14 +307,14 @@ export default function UnidadesHome() {
             },
           ].map((stat, index) => (
             <div key={index} className="group relative">
-              <div className="absolute inset-0 bg-blue-500/10 rounded-3xl blur-xl group-hover:opacity-20 transition-all duration-500"></div>
-              <Card className="relative bg-blue-50 border-0 shadow-xl shadow-gray-900/5 rounded-3xl overflow-hidden group-hover:shadow-2xl transition-all duration-500 hover:scale-105">
+              <div className={theme.unidadesHome.statsCard.glow}></div>
+              <Card className={theme.unidadesHome.statsCard.container}>
                 <CardContent className="text-center p-8">
-                  <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <stat.icon className="w-8 h-8 text-white" />
+                  <div className={theme.unidadesHome.statsCard.iconContainer}>
+                    <stat.icon className={theme.unidadesHome.statsCard.icon} />
                   </div>
-                  <div className="text-4xl font-bold mb-2 text-blue-600">{stat.value}</div>
-                  <p className="text-gray-700 font-medium">{stat.label}</p>
+                  <div className={theme.unidadesHome.statsCard.value}>{stat.value}</div>
+                  <p className={theme.unidadesHome.statsCard.label}>{stat.label}</p>
                 </CardContent>
               </Card>
             </div>
@@ -322,28 +324,28 @@ export default function UnidadesHome() {
         {/* Modern CTA Section */}
         <div className="mt-20">
           <div className="relative">
-            <div className="absolute inset-0 bg-blue-500/20 rounded-3xl blur-2xl"></div>
-            <div className="relative bg-blue-600 rounded-3xl p-12 text-center overflow-hidden">
+            <div className={theme.unidadesHome.cta.glow}></div>
+            <div className={theme.unidadesHome.cta.container}>
               {/* Background Pattern */}
               <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-10 left-10 w-2 h-2 bg-white rounded-full"></div>
-                <div className="absolute top-20 right-20 w-1 h-1 bg-white rounded-full"></div>
-                <div className="absolute bottom-20 left-20 w-1.5 h-1.5 bg-white rounded-full"></div>
-                <div className="absolute bottom-10 right-10 w-2 h-2 bg-white rounded-full"></div>
-                <div className="absolute top-1/2 left-1/4 w-1 h-1 bg-white rounded-full"></div>
-                <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 bg-white rounded-full"></div>
+                <div className={`${theme.unidadesHome.cta.patternDot} top-10 left-10`}></div>
+                <div className={`${theme.unidadesHome.cta.patternDot} top-20 right-20 w-1 h-1`}></div>
+                <div className={`${theme.unidadesHome.cta.patternDot} bottom-20 left-20 w-1.5 h-1.5`}></div>
+                <div className={`${theme.unidadesHome.cta.patternDot} bottom-10 right-10`}></div>
+                <div className={`${theme.unidadesHome.cta.patternDot} top-1/2 left-1/4 w-1 h-1`}></div>
+                <div className={`${theme.unidadesHome.cta.patternDot} top-1/3 right-1/3 w-1.5 h-1.5`}></div>
               </div>
 
               <div className="relative">
-                <h3 className="text-3xl lg:text-4xl font-bold text-white mb-6">Não encontrou a unidade ideal?</h3>
-                <p className="text-white/80 mb-8 text-lg max-w-2xl mx-auto">
+                <h3 className={theme.unidadesHome.cta.title}>Não encontrou a unidade ideal?</h3>
+                <p className={theme.unidadesHome.cta.description}>
                   Entre em contato conosco e encontraremos a melhor solução para seu atendimento
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
                     asChild
                     size="lg"
-                    className="bg-white text-blue-600 hover:bg-blue-50 shadow-2xl transition-all duration-300 hover:scale-105"
+                    className={theme.unidadesHome.cta.button.primary}
                   >
                     <Link href="/agendamento">Agendar Atendimento</Link>
                   </Button>
@@ -351,7 +353,7 @@ export default function UnidadesHome() {
                     asChild
                     variant="outline"
                     size="lg"
-                    className="border-white/30 bg-white/10 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
+                    className={theme.unidadesHome.cta.button.outline}
                   >
                     <Link href="/unidades">Ver Todas as Unidades</Link>
                   </Button>

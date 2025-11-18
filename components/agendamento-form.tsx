@@ -13,6 +13,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon, ChevronLeft, ChevronRight, MapPin, CheckCircle, Sparkles } from "lucide-react"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
+import { getTheme } from "@/lib/get-theme"
 import LavaSeca from "@/asset/icons/lava-seca.svg?component";
 import Secadora from "@/asset/icons/secadora.svg?component";
 import Lavadora from "@/asset/icons/lavadora.svg?component";
@@ -47,6 +48,7 @@ interface FormData {
 }
 
 export default function AgendamentoForm() {
+  const theme = getTheme();
   const [currentStep, setCurrentStep] = useState(1)
   const [isLoadingCep, setIsLoadingCep] = useState(false)
   const [formData, setFormData] = useState<FormData>({
@@ -153,19 +155,19 @@ export default function AgendamentoForm() {
             <div
               className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
                 currentStep >= step.number
-                  ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-500/25"
-                  : "border-gray-300 text-gray-400 bg-white"
+                  ? theme.agendamentoForm.step.active
+                  : theme.agendamentoForm.step.inactive
               }`}
             >
               {currentStep > step.number ? <CheckCircle className="w-6 h-6" /> : step.number}
             </div>
             <div className="ml-3 hidden sm:block">
               <p
-                className={`text-sm font-medium transition-colors ${currentStep >= step.number ? "text-blue-600" : "text-gray-400"}`}
+                className={`text-sm font-medium transition-colors ${currentStep >= step.number ? theme.agendamentoForm.step.activeLabel : theme.agendamentoForm.step.inactiveLabel}`}
               >
                 {step.title}
               </p>
-              <p className="text-xs text-gray-500">{step.description}</p>
+              <p className={theme.agendamentoForm.step.description}>{step.description}</p>
             </div>
             {/* {index < steps.length - 1 && (
               <div
@@ -178,18 +180,18 @@ export default function AgendamentoForm() {
 
       {/* Form Steps */}
       <div className="relative">
-        <div className="absolute inset-0 bg-blue-500/5 rounded-3xl blur-xl"></div>
-        <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl overflow-hidden pt-0">
-          <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 border-b border-blue-200 pt-3">
-            <CardTitle className="text-2xl text-blue-900">{steps[currentStep - 1].title}</CardTitle>
-            <CardDescription className="text-blue-700">{steps[currentStep - 1].description}</CardDescription>
+        <div className={theme.agendamentoForm.formCard.glow}></div>
+        <Card className={theme.agendamentoForm.formCard.container}>
+          <CardHeader className={theme.agendamentoForm.formCard.header}>
+            <CardTitle className={theme.agendamentoForm.formCard.title}>{steps[currentStep - 1].title}</CardTitle>
+            <CardDescription className={theme.agendamentoForm.formCard.description}>{steps[currentStep - 1].description}</CardDescription>
           </CardHeader>
           <CardContent className="p-8 space-y-6">
             {/* Etapa 1 - Serviço */}
             {currentStep === 1 && (
               <div className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="nome" className="text-gray-700 font-medium">
+                <Label htmlFor="nome" className={theme.agendamentoForm.input.label}>
                   Nome Completo
                 </Label>
                 <Input
@@ -197,13 +199,13 @@ export default function AgendamentoForm() {
                   value={formData.nome}
                   onChange={(e) => handleInputChange("nome", e.target.value)}
                   placeholder="Seu nome completo"
-                  className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                  className={theme.agendamentoForm.input.field}
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="telefone" className="text-gray-700 font-medium">
+                  <Label htmlFor="telefone" className={theme.agendamentoForm.input.label}>
                     Telefone
                   </Label>
                   <Input
@@ -211,11 +213,11 @@ export default function AgendamentoForm() {
                     value={formData.telefone}
                     onChange={(e) => handleInputChange("telefone", e.target.value)}
                     placeholder="(11) 99999-9999"
-                    className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                    className={theme.agendamentoForm.input.field}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-gray-700 font-medium">
+                  <Label htmlFor="email" className={theme.agendamentoForm.input.label}>
                     E-mail
                   </Label>
                   <Input
@@ -224,7 +226,7 @@ export default function AgendamentoForm() {
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     placeholder="seu@email.com"
-                    className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                    className={theme.agendamentoForm.input.field}
                   />
                 </div>
               </div>
@@ -249,8 +251,8 @@ export default function AgendamentoForm() {
                         className={`w-50 cursor-pointer transition-all duration-300 shadow rounded-xl p-4 
                         text-center align-middle justify-center items-center flex flex-col gap-2
                         ${isSelected 
-                          ? "opacity-100 shadow-lg border-2 border-blue-500 bg-blue-50 text-blue-600 fill-blue-600" 
-                          : "opacity-80 hover:opacity-100 shadow-sm hover:shadow-lg border-2 border-transparent text-gray-400 hover:text-blue-400 fill-gray-400 hover:fill-blue-400"
+                          ? theme.agendamentoForm.productCard.selected
+                          : theme.agendamentoForm.productCard.unselected
                         }`}
                         key={'key-' + index}
                       >
@@ -268,7 +270,7 @@ export default function AgendamentoForm() {
             {currentStep === 3 && (
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="cep" className="text-gray-700 font-medium">
+                  <Label htmlFor="cep" className={theme.agendamentoForm.input.label}>
                     CEP
                   </Label>
                   <div className="flex space-x-3">
@@ -284,14 +286,14 @@ export default function AgendamentoForm() {
                       }}
                       placeholder="00000-000"
                       maxLength={8}
-                      className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                      className={theme.agendamentoForm.input.field}
                     />
                     <Button
                       type="button"
                       variant="outline"
                       onClick={() => buscarCep(formData.cep)}
                       disabled={isLoadingCep || formData.cep.length !== 8}
-                      className="h-12 px-4 border-blue-200 hover:bg-blue-50 rounded-xl"
+                      className={theme.agendamentoForm.input.button}
                     >
                       <MapPin className="w-5 h-5" />
                     </Button>
@@ -299,7 +301,7 @@ export default function AgendamentoForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="endereco" className="text-gray-700 font-medium">
+                  <Label htmlFor="endereco" className={theme.agendamentoForm.input.label}>
                     Endereço
                   </Label>
                   <Input
@@ -307,13 +309,13 @@ export default function AgendamentoForm() {
                     value={formData.endereco}
                     onChange={(e) => handleInputChange("endereco", e.target.value)}
                     placeholder="Rua, Avenida..."
-                    className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                    className={theme.agendamentoForm.input.field}
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="numero" className="text-gray-700 font-medium">
+                    <Label htmlFor="numero" className={theme.agendamentoForm.input.label}>
                       Número
                     </Label>
                     <Input
@@ -321,11 +323,11 @@ export default function AgendamentoForm() {
                       value={formData.numero}
                       onChange={(e) => handleInputChange("numero", e.target.value)}
                       placeholder="123"
-                      className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                      className={theme.agendamentoForm.input.field}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="complemento" className="text-gray-700 font-medium">
+                    <Label htmlFor="complemento" className={theme.agendamentoForm.input.label}>
                       Complemento
                     </Label>
                     <Input
@@ -333,14 +335,14 @@ export default function AgendamentoForm() {
                       value={formData.complemento}
                       onChange={(e) => handleInputChange("complemento", e.target.value)}
                       placeholder="Apto, Bloco..."
-                      className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                      className={theme.agendamentoForm.input.field}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="bairro" className="text-gray-700 font-medium">
+                    <Label htmlFor="bairro" className={theme.agendamentoForm.input.label}>
                       Bairro
                     </Label>
                     <Input
@@ -348,11 +350,11 @@ export default function AgendamentoForm() {
                       value={formData.bairro}
                       onChange={(e) => handleInputChange("bairro", e.target.value)}
                       placeholder="Bairro"
-                      className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                      className={theme.agendamentoForm.input.field}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="cidade" className="text-gray-700 font-medium">
+                    <Label htmlFor="cidade" className={theme.agendamentoForm.input.label}>
                       Cidade
                     </Label>
                     <Input
@@ -360,7 +362,7 @@ export default function AgendamentoForm() {
                       value={formData.cidade}
                       onChange={(e) => handleInputChange("cidade", e.target.value)}
                       placeholder="Cidade"
-                      className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                      className={theme.agendamentoForm.input.field}
                     />
                   </div>
                 </div>
@@ -371,12 +373,12 @@ export default function AgendamentoForm() {
             {currentStep === 4 && (
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <Label className="text-gray-700 font-medium">Data do Atendimento</Label>
+                  <Label className={theme.agendamentoForm.input.label}>Data do Atendimento</Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
-                        className="w-full h-12 justify-start text-left font-normal border-gray-200 hover:bg-blue-50 rounded-xl"
+                        className={theme.agendamentoForm.button.calendar}
                       >
                         <CalendarIcon className="mr-3 h-5 w-5" />
                         {formData.data ? format(formData.data, "PPP", { locale: ptBR }) : "Selecione uma data"}
@@ -395,7 +397,7 @@ export default function AgendamentoForm() {
                 </div>
 
                 <div className="space-y-4">
-                  <Label className="text-gray-700 font-medium">Período Preferencial</Label>
+                  <Label className={theme.agendamentoForm.input.label}>Período Preferencial</Label>
                   <RadioGroup
                     value={formData.periodo}
                     onValueChange={(value) => handleInputChange("periodo", value)}
@@ -408,7 +410,7 @@ export default function AgendamentoForm() {
                     ].map((periodo) => (
                       <div
                         key={periodo.value}
-                        className="flex items-center pl-4 space-x-3 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors"
+                        className={theme.agendamentoForm.periodOption}
                       >
                         <RadioGroupItem value={periodo.value} id={periodo.id} />
                         <Label htmlFor={periodo.id} className="flex-1 py-4 cursor-pointer font-medium text-gray-700">
@@ -424,9 +426,9 @@ export default function AgendamentoForm() {
             {/* Etapa 5 - Confirmação */}
             {currentStep === 5 && (
               <div className="space-y-8">
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-6">
-                  <h3 className="font-bold text-green-800 mb-4 text-xl">Resumo do Agendamento</h3>
-                  <div className="space-y-3 text-green-700">
+                <div className={theme.agendamentoForm.confirmation.successBox}>
+                  <h3 className={theme.agendamentoForm.confirmation.successTitle}>Resumo do Agendamento</h3>
+                  <div className={`space-y-3 ${theme.agendamentoForm.confirmation.successText}`}>
                     <p className="flex justify-between">
                       <strong>Serviço:</strong>
                       <span>
@@ -456,23 +458,23 @@ export default function AgendamentoForm() {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-2xl p-6">
-                  <h4 className="font-bold text-blue-800 mb-4 text-lg">Próximos Passos</h4>
-                  <ul className="text-blue-700 space-y-2">
+                <div className={theme.agendamentoForm.confirmation.infoBox}>
+                  <h4 className={theme.agendamentoForm.confirmation.infoTitle}>Próximos Passos</h4>
+                  <ul className={`${theme.agendamentoForm.confirmation.infoText} space-y-2`}>
                     <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-2 mt-0.5 text-blue-600" />
+                      <CheckCircle className={theme.agendamentoForm.confirmation.checkIcon} />
                       Você receberá uma confirmação por WhatsApp em até 30 minutos
                     </li>
                     <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-2 mt-0.5 text-blue-600" />
+                      <CheckCircle className={theme.agendamentoForm.confirmation.checkIcon} />
                       Nosso técnico entrará em contato 1 hora antes do atendimento
                     </li>
                     <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-2 mt-0.5 text-blue-600" />
+                      <CheckCircle className={theme.agendamentoForm.confirmation.checkIcon} />
                       Tenha em mãos um documento com foto
                     </li>
                     <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-2 mt-0.5 text-blue-600" />O diagnóstico é gratuito
+                      <CheckCircle className={theme.agendamentoForm.confirmation.checkIcon} />O diagnóstico é gratuito
                     </li>
                   </ul>
                 </div>
@@ -489,7 +491,7 @@ export default function AgendamentoForm() {
           variant="outline"
           onClick={prevStep}
           disabled={currentStep === 1}
-          className="h-12 px-6 border-gray-200 hover:bg-gray-50 rounded-xl transition-all duration-300"
+          className={theme.agendamentoForm.button.prev}
         >
           <ChevronLeft className="w-5 h-5 mr-2" />
           Anterior
@@ -498,7 +500,7 @@ export default function AgendamentoForm() {
         {currentStep < 4  ? (
           <Button
             onClick={nextStep}
-            className="h-12 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg transition-all duration-300 hover:scale-105"
+            className={theme.agendamentoForm.button.next}
           >
             Próximo
             <ChevronRight className="w-5 h-5 ml-2" />
@@ -506,7 +508,7 @@ export default function AgendamentoForm() {
         ) : currentStep === 4 ? (
           <Button
             onClick={handleSubmit}
-            className="h-12 px-6 bg-green-600 hover:bg-green-700 text-white rounded-xl shadow-lg transition-all duration-300 hover:scale-105"
+            className={theme.agendamentoForm.button.confirm}
           >
             Confirmar Agendamento
             <Sparkles className="w-5 h-5 ml-2" />

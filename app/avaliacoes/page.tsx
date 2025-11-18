@@ -1,5 +1,4 @@
 import Header from "@/components/header"
-import ReviewForm from "@/components/review-form"
 import Testimonials from "@/components/testimonials"
 
 export default function AvaliacoesPage() {

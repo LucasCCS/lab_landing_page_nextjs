@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Star, Quote } from "lucide-react"
 import { useState, useEffect } from "react"
+import { getTheme } from "@/lib/get-theme"
 
 interface Testimonial {
   id: number
@@ -17,6 +18,7 @@ interface Testimonial {
 }
 
 export default function Testimonials() {
+  const theme = getTheme();
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const testimonials: Testimonial[] = [
@@ -99,7 +101,7 @@ export default function Testimonials() {
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
-      <Star key={index} className={`w-4 h-4 ${index < rating ? "text-yellow-400 fill-current" : "text-gray-300"}`} />
+      <Star key={index} className={`w-4 h-4 ${index < rating ? theme.testimonials.star.filled : theme.testimonials.star.empty}`} />
     ))
   }
 
@@ -112,61 +114,61 @@ export default function Testimonials() {
   const totalReviews = testimonials.length
 
   return (
-    <section className="py-20 bg-white rounded-md">
+    <section className={theme.testimonials.section}>
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">O que nossos clientes dizem</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+        <div className={theme.testimonials.header.container}>
+          <h2 className={theme.testimonials.header.title}>O que nossos clientes dizem</h2>
+          <p className={theme.testimonials.header.description}>
             Mais de 1.000 clientes satisfeitos confiam em nossos serviços de assistência técnica
           </p>
 
           {/* Rating Summary */}
-          <div className="flex items-center justify-center space-x-6 mb-8">
-            <div className="text-center">
-              <div className="flex items-center justify-center space-x-1 mb-2">
+          <div className={theme.testimonials.ratingSummary.container}>
+            <div className={theme.testimonials.ratingSummary.item}>
+              <div className={theme.testimonials.ratingSummary.stars}>
                 {renderStars(Math.round(averageRating))}
               </div>
-              <p className="text-2xl font-bold text-gray-900">{averageRating.toFixed(1)}</p>
-              <p className="text-sm text-gray-600">Avaliação média</p>
+              <p className={theme.testimonials.ratingSummary.value}>{averageRating.toFixed(1)}</p>
+              <p className={theme.testimonials.ratingSummary.label}>Avaliação média</p>
             </div>
-            <div className="w-px h-12 bg-gray-300"></div>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">{totalReviews}+</p>
-              <p className="text-sm text-gray-600">Avaliações</p>
+            <div className={theme.testimonials.ratingSummary.divider}></div>
+            <div className={theme.testimonials.ratingSummary.item}>
+              <p className={theme.testimonials.ratingSummary.value}>{totalReviews}+</p>
+              <p className={theme.testimonials.ratingSummary.label}>Avaliações</p>
             </div>
-            <div className="w-px h-12 bg-gray-300"></div>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">98%</p>
-              <p className="text-sm text-gray-600">Recomendação</p>
+            <div className={theme.testimonials.ratingSummary.divider}></div>
+            <div className={theme.testimonials.ratingSummary.item}>
+              <p className={theme.testimonials.ratingSummary.value}>98%</p>
+              <p className={theme.testimonials.ratingSummary.label}>Recomendação</p>
             </div>
           </div>
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className={theme.testimonials.grid}>
           {getVisibleTestimonials().map((testimonial) => (
-            <Card key={testimonial.id} className="hover:shadow-lg transition-shadow duration-300">
-              <CardContent className="p-6">
+            <Card key={testimonial.id} className={theme.testimonials.card.container}>
+              <CardContent className={theme.testimonials.card.content}>
                 {/* Quote Icon */}
                 <div className="flex justify-between items-start mb-4">
-                  <Quote className="w-8 h-8 text-blue-600 opacity-20" />
+                  <Quote className={theme.testimonials.card.quoteIcon} />
                   <div className="flex items-center space-x-1">{renderStars(testimonial.rating)}</div>
                 </div>
 
                 {/* Comment */}
-                <p className="text-gray-700 mb-6 leading-relaxed">"{testimonial.comment}"</p>
+                <p className={theme.testimonials.card.comment}>"{testimonial.comment}"</p>
 
                 {/* Service Badge */}
-                <div className="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full mb-4">
+                <div className={theme.testimonials.card.serviceBadge}>
                   {testimonial.service}
                 </div>
 
                 {/* Customer Info */}
-                <div className="flex items-center space-x-3">
+                <div className={theme.testimonials.card.customerInfo.container}>
                   <Avatar className="w-10 h-10">
                     <AvatarImage src={testimonial.avatar || "/placeholder.svg"} alt={testimonial.name} />
-                    <AvatarFallback className="bg-blue-100 text-blue-600">
+                    <AvatarFallback className={theme.testimonials.card.customerInfo.avatarFallback}>
                       {testimonial.name
                         .split(" ")
                         .map((n) => n[0])
@@ -174,9 +176,9 @@ export default function Testimonials() {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                    <p className="text-sm text-gray-600">{testimonial.location}</p>
-                    <p className="text-xs text-gray-500">{testimonial.date}</p>
+                    <p className={theme.testimonials.card.customerInfo.name}>{testimonial.name}</p>
+                    <p className={theme.testimonials.card.customerInfo.location}>{testimonial.location}</p>
+                    <p className={theme.testimonials.card.customerInfo.date}>{testimonial.date}</p>
                   </div>
                 </div>
               </CardContent>
@@ -185,39 +187,39 @@ export default function Testimonials() {
         </div>
 
         {/* Navigation Dots */}
-        <div className="flex justify-center space-x-2 mb-8">
+        <div className={theme.testimonials.navigation.container}>
           {Array.from({ length: Math.ceil(testimonials.length / 3) }, (_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                currentIndex === index ? "bg-blue-600" : "bg-gray-300"
+              className={`${theme.testimonials.navigation.dot.base} ${
+                currentIndex === index ? theme.testimonials.navigation.dot.active : theme.testimonials.navigation.dot.inactive
               }`}
             />
           ))}
         </div>
 
         {/* Rating Breakdown */}
-        <div className="bg-gray-50 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Distribuição das Avaliações</h3>
-          <div className="max-w-md mx-auto space-y-3">
+        <div className={theme.testimonials.ratingBreakdown.container}>
+          <h3 className={theme.testimonials.ratingBreakdown.title}>Distribuição das Avaliações</h3>
+          <div className={theme.testimonials.ratingBreakdown.content}>
             {[5, 4, 3, 2, 1].map((stars) => {
               const count = testimonials.filter((t) => t.rating === stars).length
               const percentage = (count / totalReviews) * 100
 
               return (
-                <div key={stars} className="flex items-center space-x-3">
-                  <div className="flex items-center space-x-1 w-16">
-                    <span className="text-sm font-medium">{stars}</span>
+                <div key={stars} className={theme.testimonials.ratingBreakdown.row}>
+                  <div className={theme.testimonials.ratingBreakdown.starLabel.container}>
+                    <span className={theme.testimonials.ratingBreakdown.starLabel.text}>{stars}</span>
                     <Star className="w-4 h-4 text-yellow-400 fill-current" />
                   </div>
-                  <div className="flex-1 bg-gray-200 rounded-full h-2">
+                  <div className={theme.testimonials.ratingBreakdown.bar.container}>
                     <div
-                      className="bg-yellow-400 h-2 rounded-full transition-all duration-500"
+                      className={theme.testimonials.ratingBreakdown.bar.fill}
                       style={{ width: `${percentage}%` }}
                     />
                   </div>
-                  <span className="text-sm text-gray-600 w-12 text-right">{count}</span>
+                  <span className={theme.testimonials.ratingBreakdown.count}>{count}</span>
                 </div>
               )
             })}
@@ -225,18 +227,18 @@ export default function Testimonials() {
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">Junte-se aos nossos clientes satisfeitos</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className={theme.testimonials.cta.container}>
+          <p className={theme.testimonials.cta.description}>Junte-se aos nossos clientes satisfeitos</p>
+          <div className={theme.testimonials.cta.buttons}>
             <a
               href="/agendamento"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+              className={theme.testimonials.cta.primary}
             >
               Agendar Serviço
             </a>
             <a
               href="#servicos"
-              className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+              className={theme.testimonials.cta.secondary}
             >
               Ver Serviços
             </a>

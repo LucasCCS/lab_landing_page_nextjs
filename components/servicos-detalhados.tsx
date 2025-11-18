@@ -21,8 +21,10 @@ import {
   Users,
 } from "lucide-react"
 import Link from "next/link"
+import { getTheme } from "@/lib/get-theme"
 
 export default function ServicosDetalhados() {
+  const theme = getTheme();
   const [selectedCategory, setSelectedCategory] = useState("todos")
 
   const servicos = [
@@ -208,7 +210,7 @@ export default function ServicosDetalhados() {
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
-      <Star key={index} className={`w-4 h-4 ${index < rating ? "text-yellow-400 fill-current" : "text-gray-300"}`} />
+      <Star key={index} className={`w-4 h-4 ${index < rating ? theme.servicosDetalhados.serviceCard.star.filled : theme.servicosDetalhados.serviceCard.star.empty}`} />
     ))
   }
 
@@ -223,14 +225,14 @@ export default function ServicosDetalhados() {
           { icon: Shield, value: "90 dias", label: "Garantia", color: "orange" },
         ].map((stat, index) => (
           <div key={index} className="group relative">
-            <div className="absolute inset-0 bg-blue-500/10 rounded-3xl blur-xl group-hover:opacity-20 transition-all duration-500"></div>
-            <Card className="relative bg-blue-50 border-0 shadow-xl rounded-3xl overflow-hidden group-hover:shadow-2xl transition-all duration-500 hover:scale-105">
+            <div className={theme.servicosDetalhados.statsCard.glow}></div>
+            <Card className={theme.servicosDetalhados.statsCard.container}>
               <CardContent className="text-center p-6">
-                <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                  <stat.icon className="w-6 h-6 text-white" />
+                <div className={theme.servicosDetalhados.statsCard.iconContainer}>
+                  <stat.icon className={theme.servicosDetalhados.statsCard.icon} />
                 </div>
-                <div className="text-2xl font-bold text-blue-600 mb-1">{stat.value}</div>
-                <p className="text-gray-700 text-sm font-medium">{stat.label}</p>
+                <div className={theme.servicosDetalhados.statsCard.value}>{stat.value}</div>
+                <p className={theme.servicosDetalhados.statsCard.label}>{stat.label}</p>
               </CardContent>
             </Card>
           </div>
@@ -239,8 +241,8 @@ export default function ServicosDetalhados() {
 
       {/* Category Filter */}
       <div className="relative">
-        <div className="absolute inset-0 bg-blue-500/5 rounded-3xl blur-xl"></div>
-        <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl">
+        <div className={theme.servicosDetalhados.filterCard.glow}></div>
+        <Card className={theme.servicosDetalhados.filterCard.container}>
           <CardContent className="p-6">
             <div className="flex flex-wrap gap-3">
               {categories.map((category) => (
@@ -250,8 +252,8 @@ export default function ServicosDetalhados() {
                   onClick={() => setSelectedCategory(category.id)}
                   className={`h-12 px-6 rounded-xl transition-all duration-300 ${
                     selectedCategory === category.id
-                      ? "bg-blue-600 hover:bg-blue-700 text-white shadow-lg"
-                      : "border-gray-200 hover:bg-blue-50 hover:border-blue-300"
+                      ? theme.servicosDetalhados.filterCard.button.active
+                      : theme.servicosDetalhados.filterCard.button.inactive
                   }`}
                 >
                   <category.icon className="w-5 h-5 mr-2" />
@@ -267,36 +269,36 @@ export default function ServicosDetalhados() {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredServicos.map((servico) => (
           <div key={servico.id} className="group relative">
-            <div className="absolute inset-0 bg-blue-500/10 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-            <Card className="relative pt-0 bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl overflow-hidden group-hover:shadow-2xl group-hover:shadow-blue-500/10 transition-all duration-500 hover:scale-105 h-full flex flex-col">
-              <div className="h-1 bg-blue-600"></div>
+            <div className={theme.servicosDetalhados.serviceCard.glow}></div>
+            <Card className={theme.servicosDetalhados.serviceCard.container}>
+              <div className={theme.servicosDetalhados.serviceCard.topBar}></div>
 
               <CardHeader className="pb-4">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-                    <servico.icon className="w-8 h-8 text-white" />
+                  <div className={theme.servicosDetalhados.serviceCard.iconContainer}>
+                    <servico.icon className={theme.servicosDetalhados.serviceCard.icon} />
                   </div>
-                  <div className="flex items-center space-x-1 bg-yellow-50 px-3 py-1 rounded-full">
+                  <div className={theme.servicosDetalhados.serviceCard.ratingContainer}>
                     {renderStars(Math.round(servico.rating))}
-                    <span className="text-sm font-bold ml-1 text-yellow-600">{servico.rating}</span>
+                    <span className={theme.servicosDetalhados.serviceCard.ratingText}>{servico.rating}</span>
                   </div>
                 </div>
 
-                <CardTitle className="text-2xl group-hover:text-blue-600 transition-colors">{servico.title}</CardTitle>
-                <CardDescription className="text-gray-600 text-base">{servico.description}</CardDescription>
+                <CardTitle className={theme.servicosDetalhados.serviceCard.title}>{servico.title}</CardTitle>
+                <CardDescription className={theme.servicosDetalhados.serviceCard.description}>{servico.description}</CardDescription>
               </CardHeader>
 
               <CardContent className="flex-grow flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
                   {/* Price and Info */}
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-blue-50 rounded-xl p-3">
-                      <p className="text-xs text-blue-600 font-medium mb-1">Preço</p>
-                      <p className="text-sm font-bold text-blue-800">{servico.price}</p>
+                    <div className={theme.servicosDetalhados.serviceCard.priceBox.container}>
+                      <p className={theme.servicosDetalhados.serviceCard.priceBox.label}>Preço</p>
+                      <p className={theme.servicosDetalhados.serviceCard.priceBox.value}>{servico.price}</p>
                     </div>
-                    <div className="bg-green-50 rounded-xl p-3">
-                      <p className="text-xs text-green-600 font-medium mb-1">Duração</p>
-                      <p className="text-sm font-bold text-green-800">{servico.duration}</p>
+                    <div className={theme.servicosDetalhados.serviceCard.durationBox.container}>
+                      <p className={theme.servicosDetalhados.serviceCard.durationBox.label}>Duração</p>
+                      <p className={theme.servicosDetalhados.serviceCard.durationBox.value}>{servico.duration}</p>
                     </div>
                   </div>
 
@@ -305,13 +307,13 @@ export default function ServicosDetalhados() {
                     <p className="text-sm font-medium text-gray-700 mb-2">Serviços Inclusos:</p>
                     <ul className="space-y-1">
                       {servico.features.slice(0, 3).map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-sm text-gray-600">
-                          <CheckCircle className="w-3 h-3 text-green-500 mr-2 flex-shrink-0" />
+                        <li key={idx} className={theme.servicosDetalhados.serviceCard.featureItem.container}>
+                          <CheckCircle className={theme.servicosDetalhados.serviceCard.featureItem.icon} />
                           {feature}
                         </li>
                       ))}
                       {servico.features.length > 3 && (
-                        <li className="text-xs text-blue-600 font-medium">
+                        <li className={theme.servicosDetalhados.serviceCard.featureItem.moreText}>
                           +{servico.features.length - 3} serviços adicionais
                         </li>
                       )}
@@ -326,13 +328,13 @@ export default function ServicosDetalhados() {
                         <Badge
                           key={brand}
                           variant="outline"
-                          className="text-xs border-blue-200 bg-blue-50 text-blue-700"
+                          className={theme.servicosDetalhados.serviceCard.brandBadge.active}
                         >
                           {brand}
                         </Badge>
                       ))}
                       {servico.brands.length > 4 && (
-                        <Badge variant="outline" className="text-xs bg-gray-100 text-gray-700">
+                        <Badge variant="outline" className={theme.servicosDetalhados.serviceCard.brandBadge.more}>
                           +{servico.brands.length - 4}
                         </Badge>
                       )}
@@ -348,7 +350,7 @@ export default function ServicosDetalhados() {
                       {servico.reviews} avaliações
                     </div>
                     <div className="flex items-center">
-                      <Shield className="w-4 h-4 mr-1 text-green-500" />
+                      <Shield className={theme.servicosDetalhados.serviceCard.reviewIcon} />
                       {servico.warranty} garantia
                     </div>
                   </div>
@@ -356,14 +358,14 @@ export default function ServicosDetalhados() {
                   <div className="flex space-x-2">
                     <Button
                       asChild
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition-all duration-300"
+                      className={theme.servicosDetalhados.serviceCard.button.primary}
                     >
                       <Link href={`/agendamento?servico=${servico.id}`}>
                         <Calendar className="w-4 h-4 mr-2" />
                         Agendar
                       </Link>
                     </Button>
-                    <Button asChild variant="outline" className="border-blue-200 hover:bg-blue-50">
+                    <Button asChild variant="outline" className={theme.servicosDetalhados.serviceCard.button.outline}>
                       <Link href={`/servicos/${servico.id}`}>Detalhes</Link>
                     </Button>
                   </div>
@@ -376,25 +378,25 @@ export default function ServicosDetalhados() {
 
       {/* Emergency Service */}
       <div className="relative">
-        <div className="absolute inset-0 bg-red-500/20 rounded-3xl blur-2xl"></div>
-        <div className="relative bg-gradient-to-r from-red-600 to-red-700 rounded-3xl p-8 text-center overflow-hidden">
+        <div className={theme.servicosDetalhados.emergency.glow}></div>
+        <div className={theme.servicosDetalhados.emergency.container}>
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-10 left-10 w-2 h-2 bg-white rounded-full"></div>
-            <div className="absolute top-20 right-20 w-1 h-1 bg-white rounded-full"></div>
-            <div className="absolute bottom-20 left-20 w-1.5 h-1.5 bg-white rounded-full"></div>
-            <div className="absolute bottom-10 right-10 w-2 h-2 bg-white rounded-full"></div>
+            <div className={`${theme.servicosDetalhados.emergency.patternDot} top-10 left-10`}></div>
+            <div className={`${theme.servicosDetalhados.emergency.patternDot} top-20 right-20 w-1 h-1`}></div>
+            <div className={`${theme.servicosDetalhados.emergency.patternDot} bottom-20 left-20 w-1.5 h-1.5`}></div>
+            <div className={`${theme.servicosDetalhados.emergency.patternDot} bottom-10 right-10`}></div>
           </div>
 
           <div className="relative">
-            <h3 className="text-3xl font-bold text-white mb-4">Atendimento de Emergência</h3>
-            <p className="text-white/90 mb-6 text-lg max-w-2xl mx-auto">
+            <h3 className={theme.servicosDetalhados.emergency.title}>Atendimento de Emergência</h3>
+            <p className={theme.servicosDetalhados.emergency.description}>
               Problemas urgentes? Oferecemos atendimento 24 horas para emergências
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 asChild
                 size="lg"
-                className="bg-white text-red-600 hover:bg-red-50 shadow-2xl transition-all duration-300 hover:scale-105"
+                className={theme.servicosDetalhados.emergency.button.primary}
               >
                 <Link href="tel:(11)3000-0000">
                   <Phone className="w-5 h-5 mr-2" />
@@ -405,7 +407,7 @@ export default function ServicosDetalhados() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-white/30 text-red-600 hover:text-red-500 hover:bg-white/60 backdrop-blur-sm transition-all duration-300"
+                className={theme.servicosDetalhados.emergency.button.outline}
               >
                 <Link href="/agendamento?urgente=true">Agendar Emergência</Link>
               </Button>
@@ -416,8 +418,8 @@ export default function ServicosDetalhados() {
 
       {/* FAQ Section */}
       <div className="relative">
-        <div className="absolute inset-0 bg-blue-500/5 rounded-3xl blur-xl"></div>
-        <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl rounded-3xl">
+        <div className={theme.servicosDetalhados.faq.glow}></div>
+        <Card className={theme.servicosDetalhados.faq.container}>
           <CardHeader>
             <CardTitle className="text-2xl text-center">Perguntas Frequentes</CardTitle>
           </CardHeader>
@@ -441,9 +443,9 @@ export default function ServicosDetalhados() {
                   answer: "Sim, nossos técnicos são capacitados para atender todas as principais marcas do mercado.",
                 },
               ].map((faq, index) => (
-                <div key={index} className="bg-blue-50 rounded-2xl p-6">
-                  <h4 className="font-semibold text-gray-900 mb-2">{faq.question}</h4>
-                  <p className="text-gray-600 text-sm">{faq.answer}</p>
+                <div key={index} className={theme.servicosDetalhados.faq.card}>
+                  <h4 className={theme.servicosDetalhados.faq.question}>{faq.question}</h4>
+                  <p className={theme.servicosDetalhados.faq.answer}>{faq.answer}</p>
                 </div>
               ))}
             </div>

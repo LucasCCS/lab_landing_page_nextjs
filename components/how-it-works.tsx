@@ -2,8 +2,10 @@ import { Button } from "@/components/ui/button"
 import { Calendar, MapPin, Wrench, CheckCircle } from "lucide-react"
 import Link from "next/link"
 import { config } from "@/data/config"
+import { getTheme } from "@/lib/get-theme"
 
 export default function HowItWorks() {
+  const theme = getTheme();
   const steps = [
     {
       icon: Calendar,
@@ -28,28 +30,28 @@ export default function HowItWorks() {
   ]
 
   return (
-    <section id="como-funciona" className="py-20 bg-gray-50">
+    <section id="como-funciona" className={theme.howItWorks.section}>
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Como Funciona?</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <div className={theme.howItWorks.header.container}>
+          <h2 className={theme.howItWorks.header.title}>Como Funciona?</h2>
+          <p className={theme.howItWorks.header.description}>
             Processo simples e transparente para resolver o problema do seu aparelho {config.product} {config.brand}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-8 mb-12">
+        <div className={theme.howItWorks.steps.container}>
           {steps.map((step, index) => (
-            <div key={index} className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <step.icon className="w-8 h-8 text-white" />
+            <div key={index} className={theme.howItWorks.steps.item}>
+              <div className={theme.howItWorks.steps.iconContainer}>
+                <step.icon className={theme.howItWorks.steps.icon} />
               </div> 
-              <h3 className="text-lg font-bold text-gray-900 mb-2">{step.title}</h3>
-              <p className="text-gray-600">{step.description}</p>
+              <h3 className={theme.howItWorks.steps.title}>{step.title}</h3>
+              <p className={theme.howItWorks.steps.description}>{step.description}</p>
             </div>
           ))}
         </div>
 
-        <div className="text-center">
+        <div className={theme.howItWorks.buttonContainer}>
           <Button size="lg" asChild>
             <Link href="/agendamento">Começar Agendamento</Link>
           </Button>
