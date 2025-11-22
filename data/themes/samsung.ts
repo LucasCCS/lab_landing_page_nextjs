@@ -1,8 +1,17 @@
 
 export const samsung = {
+    name: 'samsung',
+    logo: 'logo.webp',
+    logoFooter: 'logo_footer.webp',
+    floatingContactList: {
+        button: 'cursor-pointer transition-all duration-300 hover:scale-115 rounded-full p-3 flex flex-col gap-4 shadow-lg',
+        whatsapp: 'bg-green-500 hover:bg-green-600',
+        phone: 'bg-red-600 hover:bg-red-700',
+    },
     hero: {
         background: {
-            color: `from-blue-600 via-blue-700 to-blue-800`,
+            image: 'https://images.samsung.com/is/image/samsung/p6pim/br/feature/166441956/br-feature-wf90f27-548543147?$FB_TYPE_A_JPG$',
+            color: `from-blue-600/80 via-blue-700/80 to-blue-800/80 backdrop-blur-sm bg-blend-overlay`,
             effects: [
                 `absolute top-20 left-20 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-pulse`,
                 `absolute bottom-20 right-20 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl animate-pulse delay-1000`,
@@ -29,7 +38,7 @@ export const samsung = {
                 background: 'relative bg-white/95 backdrop-blur-sm rounded-2xl p-8',
                 header: {
                     title: 'text-2xl font-bold text-gray-900',
-                    titleIcon: 'w-3 h-3 bg-blue-500 rounded-full animate-pulse'
+                    titleIcon: 'w-3 h-3 bg-green-500 rounded-full animate-pulse'
                 },
                 description: 'text-gray-600 mb-8',
                 search: {
@@ -196,7 +205,7 @@ export const samsung = {
         }
     },
     header: {
-        container: 'bg-white shadow-sm border-b',
+        container: 'bg-white shadow-sm',
         logoText: 'font-bold text-xl text-gray-900',
         nav: {
             link: 'text-gray-600 hover:text-blue-600 transition-colors'

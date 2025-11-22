@@ -19,7 +19,6 @@ import Secadora from "@/asset/icons/secadora.svg?component";
 import Lavadora from "@/asset/icons/lavadora.svg?component";
 import MaquinaDeLavar from "@/asset/icons/maquina-de-lavar.svg?component";
 
-
 interface FormData {
   // Etapa 1 - Serviço
   servico: string

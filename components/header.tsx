@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Phone } from "lucide-react"
+import { ArrowRight, Phone } from "lucide-react"
 import { config } from "@/data/config"
 import { getTheme } from "@/lib/get-theme"
 import Image from "next/image"
@@ -11,10 +11,12 @@ export default function Header() {
   const theme = getTheme();
   return (
     <header className={theme.header.container}>
+      
+      {/* <div className="bg-blue-600 text-white hover:scale-105 shadow-lg p-1 flex justify-center items-center flex-col"></div> */}
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2">
-            <Image src={'themes/samsung/logo.svg'} alt={config.title || ""} width={100} height={100} />
+            <Image src={`/themes/${theme.name}/${theme.logo}`} alt={config.title || ""} width={100} height={100} />
             <span className={theme.header.logoText}>{config.title}</span>
           </Link>
 
@@ -39,10 +41,13 @@ export default function Header() {
               <span>(11) 3000-0000</span>
             </div>
             <Button asChild className={theme.header.button}>
-              <Link href="/agendamento">Agendar Serviço</Link>
+              <Link href="/agendamento">Agendar visita grátis
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
             </Button>
           </div>
         </div>
+
       </div>
     </header>
   )
