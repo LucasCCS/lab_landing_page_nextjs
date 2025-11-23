@@ -9,22 +9,17 @@ export interface Avaliacao {
 export interface Unidade {
   id: string
   nome: string
-  endereco: string
   bairro: string
-  regiao: string
+  estado: string
+  cidade: string
   cep: string
   telefone: string
   horario: {
-    diasUteis: string
+  diasUteis: string
     sabado: string
     domingo?: string
   }
   especialidades: string[]
   avaliacao: number
   avaliacoes: Avaliacao[]
-  comoChegar?: string
-  coordenadas?: {
-    lat: number
-    lng: number
-  }
 }

@@ -1,8 +1,8 @@
 
 export const samsung = {
     name: 'samsung',
-    logo: 'logo.webp',
-    logoFooter: 'logo_footer.webp',
+    logo: 'logo.png',
+    logoFooter: 'logo_footer.png',
     floatingContactList: {
         button: 'cursor-pointer transition-all duration-300 hover:scale-115 rounded-full p-3 flex flex-col gap-4 shadow-lg',
         whatsapp: 'bg-green-500 hover:bg-green-600',
@@ -37,7 +37,7 @@ export const samsung = {
             content: {
                 background: 'relative bg-white/95 backdrop-blur-sm rounded-2xl p-8',
                 header: {
-                    title: 'text-2xl font-bold text-gray-900',
+                    title: 'md:text-2xl text-xl font-bold text-gray-900',
                     titleIcon: 'w-3 h-3 bg-green-500 rounded-full animate-pulse'
                 },
                 description: 'text-gray-600 mb-8',

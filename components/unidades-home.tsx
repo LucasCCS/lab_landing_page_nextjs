@@ -21,27 +21,26 @@ import {
 import Link from "next/link"
 import { unidades } from "@/data/unidades"
 import { getTheme } from "@/lib/get-theme"
+import { useRegion } from "@/context/RegionContext"
 
 export default function UnidadesHome() {
   const theme = getTheme();
+  const { unities, loading, error, search } = useRegion();
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedRegion, setSelectedRegion] = useState("todas")
 
-  const regions = ["todas", ...Array.from(new Set(unidades.map((unidade) => unidade.regiao)))]
+  const regions = ["todas", ...Array.from(new Set(unidades.map((unidade) => unidade.cidade)))]
 
   const filteredUnidades = unidades.filter((unidade) => {
     const matchesSearch =
-      searchTerm === "" ||
-      unidade.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      unidade.endereco.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      unidade.bairro.toLowerCase().includes(searchTerm.toLowerCase())
+      searchTerm === "" || unidade.cep.toLowerCase().includes(searchTerm.toLowerCase())
 
-    const matchesRegion = selectedRegion === "todas" || unidade.regiao === selectedRegion
+    const matchesRegion = selectedRegion === "todas" || unidade.cidade === selectedRegion
 
     return matchesSearch && matchesRegion
   })
 
-  const displayedUnidades = filteredUnidades.slice(0, 6)
+  const displayedUnidades = unities.slice(0, 6)
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
@@ -95,27 +94,12 @@ export default function UnidadesHome() {
                   <div className={theme.unidadesHome.searchCard.input.container}>
                     <Search className={theme.unidadesHome.searchCard.input.icon} />
                     <Input
-                      placeholder="Buscar por nome, bairro ou endereço..."
+                      placeholder="Buscar por CEP"
                       className={theme.unidadesHome.searchCard.input.field}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                   </div>
-                </div>
-
-                <div className={theme.unidadesHome.searchCard.select.container}>
-                  <MapPin className={theme.unidadesHome.searchCard.select.icon} />
-                  <select
-                    className={theme.unidadesHome.searchCard.select.field}
-                    value={selectedRegion}
-                    onChange={(e) => setSelectedRegion(e.target.value)}
-                  >
-                    {regions.map((region) => (
-                      <option key={region} value={region}>
-                        {region === "todas" ? "Todas as regiões" : region}
-                      </option>
-                    ))}
-                  </select>
                 </div>
               </div>
 
@@ -156,7 +140,7 @@ export default function UnidadesHome() {
                       <div className={theme.unidadesHome.unitCard.location.container}>
                         <MapPin className={theme.unidadesHome.unitCard.location.icon} />
                         <span>
-                          {unidade.bairro}, {unidade.regiao}
+                          {unidade.bairro}, {unidade.cidade}
                         </span>
                       </div>
                     </div>
@@ -168,10 +152,10 @@ export default function UnidadesHome() {
                 </CardHeader>
 
                 <CardContent className="space-y-4">
-                  <div className={theme.unidadesHome.unitCard.addressBox.container}>
+                  {/* <div className={theme.unidadesHome.unitCard.addressBox.container}>
                     <p className={theme.unidadesHome.unitCard.addressBox.label}>Endereço:</p>
                     <p className={theme.unidadesHome.unitCard.addressBox.value}>{unidade.endereco}</p>
-                  </div>
+                  </div> */}
 
                   <div className={theme.unidadesHome.unitCard.scheduleBox.container}>
                     <Clock className={theme.unidadesHome.unitCard.scheduleBox.icon} />
@@ -225,7 +209,7 @@ export default function UnidadesHome() {
                       variant="outline"
                       className={theme.unidadesHome.unitCard.button.outline}
                     >
-                      <Link href={`/unidades/${unidade.id}`}>
+                      <Link href={`/unidades/${unidade.estado}/${unidade.cidade}/${unidade.bairro}`}>
                         <ExternalLink className="w-3 h-3" />
                       </Link>
                     </Button>
@@ -292,7 +276,7 @@ export default function UnidadesHome() {
             },
             {
               icon: Wrench,
-              value: Array.from(new Set(unidades.map((u) => u.regiao))).length,
+              value: Array.from(new Set(unidades.map((u) => u.cidade))).length,
               label: "Regiões Atendidas",
             },
             {

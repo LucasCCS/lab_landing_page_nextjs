@@ -173,10 +173,10 @@ export default function UnidadeDetalhes({ unidade }: UnidadeDetalhesProps) {
             </div>
 
             {/* Formulário de avaliação */}
-            <div className="bg-white rounded-lg p-6 shadow-sm">
+            {/* <div className="bg-white rounded-lg p-6 shadow-sm">
               <h3 className="text-xl font-medium mb-4">Deixe sua Avaliação</h3>
               <ReviewForm />
-            </div>
+            </div> */}
           </div>
         </TabsContent>
 

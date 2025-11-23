@@ -34,17 +34,17 @@ export default function UnidadeCard({ unidade }: UnidadeCardProps) {
           <div className={theme.unidadeCard.header.location.container}>
             <MapPin className={theme.unidadeCard.header.location.icon} />
             <span>
-              {unidade.bairro}, {unidade.regiao}
+              {unidade.bairro}, {unidade.cidade}
             </span>
           </div>
         </CardHeader>
 
         <CardContent className={theme.unidadeCard.content}>
           <div className="space-y-4">
-            <div className={theme.unidadeCard.addressBox.container}>
+            {/* <div className={theme.unidadeCard.addressBox.container}>
               <p className={theme.unidadeCard.addressBox.label}>Endereço:</p>
               <p className={theme.unidadeCard.addressBox.value}>{unidade.endereco}</p>
-            </div>
+            </div> */}
 
             <div className={theme.unidadeCard.scheduleBox.container}>
               <div className={theme.unidadeCard.scheduleBox.wrapper}>
@@ -81,7 +81,7 @@ export default function UnidadeCard({ unidade }: UnidadeCardProps) {
               <span>{unidade.avaliacoes.length} avaliações</span>
             </div>
             <Button asChild size="sm" variant="outline" className={theme.unidadeCard.footer.button}>
-              <Link href={`/unidades/${unidade.id}`}>
+              <Link href={`/unidades/${unidade.estado}/${unidade.cidade}/${unidade.bairro}`}>
                 Ver Detalhes
                 <ChevronRight className="ml-1 w-4 h-4" />
               </Link>

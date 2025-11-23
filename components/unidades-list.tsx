@@ -9,26 +9,26 @@ import UnidadeMap from "@/components/unidade-map"
 import UnidadeCard from "@/components/unidade-card"
 import { unidades } from "@/data/unidades"
 import { getTheme } from "@/lib/get-theme"
+import { useRegion } from "@/context/RegionContext"
 
 export default function UnidadesList() {
   const theme = getTheme();
+  const { unities, loading, error, search } = useRegion();
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedRegion, setSelectedRegion] = useState("todas")
   const [selectedSpecialty, setSelectedSpecialty] = useState("todas")
+  
 
   // Extrair regiões únicas
-  const regions = ["todas", ...Array.from(new Set(unidades.map((unidade) => unidade.regiao)))]
+  const regions = ["todas", ...Array.from(new Set(unities.map((unidade) => unidade.regiao)))]
 
   // Extrair especialidades únicas
-  const specialties = ["todas", ...Array.from(new Set(unidades.flatMap((unidade) => unidade.especialidades)))]
+  const specialties = ["todas", ...Array.from(new Set(unities.flatMap((unidade) => unidade.especialidades)))]
 
   // Filtrar unidades
-  const filteredUnidades = unidades.filter((unidade) => {
+  const filteredUnidades = unities.filter((unidade) => {
     const matchesSearch =
-      searchTerm === "" ||
-      unidade.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      unidade.endereco.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      unidade.bairro.toLowerCase().includes(searchTerm.toLowerCase())
+      searchTerm === "" || unidade.cep.toLowerCase().includes(searchTerm.toLowerCase())
 
     const matchesRegion = selectedRegion === "todas" || unidade.regiao === selectedRegion
 
@@ -55,7 +55,7 @@ export default function UnidadesList() {
                 />
               </div>
 
-              <div className={theme.unidadesList.filters.select.container}>
+              {/* <div className={theme.unidadesList.filters.select.container}>
                 <MapPin className={theme.unidadesList.filters.select.icon} />
                 <select
                   className={theme.unidadesList.filters.select.field}
@@ -68,7 +68,7 @@ export default function UnidadesList() {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div> */}
 
               <div className={theme.unidadesList.filters.select.container}>
                 <ListFilter className={theme.unidadesList.filters.select.icon} />
@@ -95,7 +95,7 @@ export default function UnidadesList() {
           <p className={theme.unidadesList.results.count}>
             {filteredUnidades.length} {filteredUnidades.length === 1 ? "unidade encontrada" : "unidades encontradas"}
           </p>
-          <Tabs defaultValue="lista" className={theme.unidadesList.results.tabs.container}>
+          {/* <Tabs defaultValue="lista" className={theme.unidadesList.results.tabs.container}>
             <TabsList className={theme.unidadesList.results.tabs.list}>
               <TabsTrigger
                 value="lista"
@@ -112,7 +112,7 @@ export default function UnidadesList() {
                 Mapa
               </TabsTrigger>
             </TabsList>
-          </Tabs>
+          </Tabs> */}
         </div>
 
         <Tabs defaultValue="lista" className="w-full">
@@ -124,14 +124,14 @@ export default function UnidadesList() {
             </div>
           </TabsContent>
 
-          <TabsContent value="mapa" className={theme.unidadesList.results.content.mapa.container}>
+          {/* <TabsContent value="mapa" className={theme.unidadesList.results.content.mapa.container}>
             <div className={theme.unidadesList.results.content.mapa.wrapper}>
               <div className={theme.unidadesList.results.content.mapa.glow}></div>
               <div className={theme.unidadesList.results.content.mapa.map}>
                 <UnidadeMap unidades={filteredUnidades} />
               </div>
             </div>
-          </TabsContent>
+          </TabsContent> */}
         </Tabs>
       </div>
     </div>

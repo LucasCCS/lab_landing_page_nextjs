@@ -34,7 +34,7 @@ export default function ServicosDetalhados() {
       title: "Lavadoras",
       description: "Reparo completo e manutenção de lavadoras de todas as marcas",
       category: "eletrodomesticos",
-      price: "A partir de R$ 80",
+      price: "Grátis",
       duration: "1-2 horas",
       warranty: "90 dias",
       rating: 4.9,
@@ -62,7 +62,7 @@ export default function ServicosDetalhados() {
       title: "Secadoras",
       description: "Manutenção e reparo especializado em secadoras residenciais",
       category: "eletrodomesticos",
-      price: "A partir de R$ 90",
+      price: "Grátis",
       duration: "1-3 horas",
       warranty: "90 dias",
       rating: 4.8,
@@ -90,7 +90,7 @@ export default function ServicosDetalhados() {
       title: "Refrigeradores",
       description: "Troca de filtros e manutenção completa de refrigeradores",
       category: "eletrodomesticos",
-      price: "A partir de R$ 100",
+      price: "Grátis",
       duration: "30min - 2 horas",
       warranty: "90 dias",
       rating: 4.9,
@@ -112,97 +112,13 @@ export default function ServicosDetalhados() {
       ],
       brands: ["Brastemp", "Electrolux", "LG", "Samsung", "Consul", "Bosch"],
     },
-    {
-      id: "ar-condicionado",
-      icon: Wind,
-      title: "Ar Condicionado",
-      description: "Instalação, manutenção e reparo de sistemas de climatização",
-      category: "climatizacao",
-      price: "A partir de R$ 120",
-      duration: "2-4 horas",
-      warranty: "90 dias",
-      rating: 4.7,
-      reviews: 156,
-      features: [
-        "Instalação completa",
-        "Limpeza de filtros",
-        "Carga de gás refrigerante",
-        "Manutenção preventiva",
-        "Reparo de vazamentos",
-      ],
-      problems: [
-        "Não gela",
-        "Vazamento de água",
-        "Ruído excessivo",
-        "Não liga",
-        "Gelo no evaporador",
-        "Consumo alto de energia",
-      ],
-      brands: ["LG", "Samsung", "Electrolux", "Midea", "Springer", "Carrier"],
-    },
-    {
-      id: "fogoes",
-      icon: Zap,
-      title: "Fogões",
-      description: "Reparo e manutenção de fogões convencionais e cooktops",
-      category: "cozinha",
-      price: "A partir de R$ 70",
-      duration: "1-2 horas",
-      warranty: "90 dias",
-      rating: 4.8,
-      reviews: 98,
-      features: [
-        "Troca de queimadores",
-        "Ajuste de chamas",
-        "Limpeza interna",
-        "Verificação de segurança",
-        "Calibração do forno",
-      ],
-      problems: [
-        "Queimador não acende",
-        "Chama irregular",
-        "Vazamento de gás",
-        "Forno não aquece",
-        "Problemas no acendedor",
-        "Válvulas com defeito",
-      ],
-      brands: ["Brastemp", "Electrolux", "Consul", "Atlas", "Continental", "Dako"],
-    },
-    {
-      id: "microondas",
-      icon: Zap,
-      title: "Microondas",
-      description: "Reparo e manutenção de fornos microondas",
-      category: "cozinha",
-      price: "A partir de R$ 85",
-      duration: "1-2 horas",
-      warranty: "90 dias",
-      rating: 4.6,
-      reviews: 67,
-      features: [
-        "Troca de magnetron",
-        "Reparo do painel",
-        "Limpeza interna",
-        "Verificação de segurança",
-        "Calibração de potência",
-      ],
-      problems: [
-        "Não aquece",
-        "Não liga",
-        "Prato não gira",
-        "Ruído excessivo",
-        "Display com defeito",
-        "Porta não trava",
-      ],
-      brands: ["Brastemp", "Electrolux", "LG", "Samsung", "Panasonic", "Consul"],
-    },
   ]
 
   const categories = [
     { id: "todos", label: "Todos os Serviços", icon: Settings },
     { id: "eletrodomesticos", label: "Eletrodomésticos", icon: Waves },
-    { id: "climatizacao", label: "Climatização", icon: Wind },
-    { id: "cozinha", label: "Cozinha", icon: Zap },
+    // { id: "climatizacao", label: "Climatização", icon: Wind },
+    // { id: "cozinha", label: "Cozinha", icon: Zap },
   ]
 
   const filteredServicos =
@@ -293,7 +209,7 @@ export default function ServicosDetalhados() {
                   {/* Price and Info */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className={theme.servicosDetalhados.serviceCard.priceBox.container}>
-                      <p className={theme.servicosDetalhados.serviceCard.priceBox.label}>Preço</p>
+                      <p className={theme.servicosDetalhados.serviceCard.priceBox.label}>Taxa de Visita</p>
                       <p className={theme.servicosDetalhados.serviceCard.priceBox.value}>{servico.price}</p>
                     </div>
                     <div className={theme.servicosDetalhados.serviceCard.durationBox.container}>
@@ -321,7 +237,7 @@ export default function ServicosDetalhados() {
                   </div>
 
                   {/* Brands */}
-                  <div>
+                  {/* <div>
                     <p className="text-sm font-medium text-gray-700 mb-2">Marcas Atendidas:</p>
                     <div className="flex flex-wrap gap-1">
                       {servico.brands.slice(0, 4).map((brand) => (
@@ -339,7 +255,7 @@ export default function ServicosDetalhados() {
                         </Badge>
                       )}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Actions */}
@@ -365,9 +281,9 @@ export default function ServicosDetalhados() {
                         Agendar
                       </Link>
                     </Button>
-                    <Button asChild variant="outline" className={theme.servicosDetalhados.serviceCard.button.outline}>
+                    {/* <Button asChild variant="outline" className={theme.servicosDetalhados.serviceCard.button.outline}>
                       <Link href={`/servicos/${servico.id}`}>Detalhes</Link>
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </CardContent>

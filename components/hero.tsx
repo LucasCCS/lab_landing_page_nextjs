@@ -103,20 +103,6 @@ export default function Hero() {
                     <UnidadeQuickSearch />
                   </div>
 
-                  {/* <div className="space-y-4 mb-8">
-                    {content.hero.services.map((item, index) => (
-                      <div
-                        key={index}
-                        className={theme.hero.schedule.content.search.background}
-                      >
-                        <div className="relative flex items-center justify-between">
-                          <span className="font-semibold text-gray-900">{item.service}</span>
-                          <span className={theme.hero.schedule.services.text + ' font-bold'}>Orçamento sem taxa de visita</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div> */}
-
                   <div className="space-y-3">
                     <Button
                       className={theme.button.primary + ' w-full hover:scale-105'}

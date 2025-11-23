@@ -60,7 +60,7 @@ export default function Services() {
                 <CardContent className="space-y-6">
                   <ul className="space-y-3">
                     {service.features.map((feature, idx) => (
-                      <li key={idx} className={theme.services.card.featureText}>
+                      <li key={idx} className={theme.services.card.featureText + ' flex items-center'}>
                         <div className={theme.services.card.featureDot}></div>
                         {feature}
                       </li>

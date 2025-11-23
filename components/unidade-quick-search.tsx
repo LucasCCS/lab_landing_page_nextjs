@@ -6,23 +6,30 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search, MapPin, Star } from "lucide-react"
 import Link from "next/link"
-import { unidades } from "@/data/unidades"
+import { useRegion } from "@/context/RegionContext"
+import { Unidade } from "@/types/unidade"
 
 export default function UnidadeQuickSearch() {
+  const { unities, loading, error, search } = useRegion();
+  const [filteredUnidades, setFilteredUnidades] = useState<Unidade[]>([]);
   const [searchTerm, setSearchTerm] = useState("")
   const [isSearching, setIsSearching] = useState(false)
 
-  const filteredUnidades = unidades.filter((unidade) => {
-    if (!searchTerm) return false
-    return (
-      unidade.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      unidade.endereco.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      unidade.bairro.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      unidade.regiao.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  })
+
+  // const filteredUnidades = unidades.filter((unidade) => {
+  //   if (!searchTerm) return false
+  //   return (
+  //     unidade.cep.toLowerCase().includes(searchTerm.toLowerCase())
+  //   )
+  // })
 
   const handleSearch = (value: string) => {
+    search(value).then((unities: Unidade[]) => {
+
+      const result = unities.slice(0, 2);
+
+      setFilteredUnidades(result);
+    });
     setSearchTerm(value)
     setIsSearching(value.length > 0)
   }
@@ -38,7 +45,7 @@ export default function UnidadeQuickSearch() {
       <div className="relative group">
         <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 group-focus-within:text-blue-500 transition-colors" />
         <Input
-          placeholder="Buscar unidade por bairro ou região..."
+          placeholder="Buscar undiade por CEP"
           className="pl-12 pr-4 h-14 text-lg border-0 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500/20 rounded-2xl transition-all duration-300"
           value={searchTerm}
           onChange={(e) => handleSearch(e.target.value)}
@@ -58,7 +65,7 @@ export default function UnidadeQuickSearch() {
                     {filteredUnidades.slice(0, 5).map((unidade, index) => (
                       <Link
                         key={unidade.id}
-                        href={`/unidades/${unidade.id}`}
+                        href={`/unidades/${unidade.estado}/${unidade.cidade}/${unidade.bairro}`}
                         className="block p-4 hover:bg-blue-50 transition-all duration-300 group"
                         onClick={() => setIsSearching(false)}
                       >
@@ -70,10 +77,10 @@ export default function UnidadeQuickSearch() {
                             <div className="flex items-center text-sm text-gray-600 mt-1">
                               <MapPin className="w-3 h-3 mr-1 text-blue-500" />
                               <span>
-                                {unidade.bairro}, {unidade.regiao}
+                                {unidade.bairro}, {unidade.cidade}
                               </span>
                             </div>
-                            <p className="text-xs text-gray-500 mt-1">{unidade.endereco}</p>
+                            {/* <p className="text-xs text-gray-500 mt-1">{unidade.endereco}</p> */}
                           </div>
                           <div className="flex items-center space-x-1 ml-4 bg-yellow-50 px-2 py-1 rounded-full">
                             {renderStars(Math.round(unidade.avaliacao))}

@@ -1,9 +1,12 @@
+"use client"
+
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import UnidadeDetalhes from "@/components/unidade-detalhes"
 import { unidades } from "@/data/unidades"
 import { notFound } from "next/navigation"
 import { getTheme } from "@/lib/get-theme"
+import { useRegion } from "@/context/RegionContext"
 
 interface UnidadePageProps {
   params: Promise<{
@@ -11,14 +14,16 @@ interface UnidadePageProps {
   }>
 }
 
-export default async function UnidadePage({ params }: UnidadePageProps) {
+export default function UnidadePage({ params }: UnidadePageProps) {
   const theme = getTheme();
-  const { id } = await params
-  const unidade = unidades.find((u) => u.id === id)
+  const { unities, loading, error, search } = useRegion();
 
-  if (!unidade) {
-    notFound()
-  }
+  params.then((params) => {
+    console.log(params);
+  });
+  // if (!unidade) {
+  //   notFound()
+  // }
 
   return (
     <div className={theme.page.hero.container}>
@@ -47,7 +52,7 @@ export default async function UnidadePage({ params }: UnidadePageProps) {
           <div className={theme.page.card.container}>
             <div className={theme.page.card.glow}></div>
             <div className={theme.page.card.card}>
-              <UnidadeDetalhes unidade={unidade} />
+              {/* <UnidadeDetalhes unidade={unidade} /> */}
             </div>
           </div>
         </div>
