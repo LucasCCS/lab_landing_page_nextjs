@@ -25,7 +25,7 @@ import { useRegion } from "@/context/RegionContext"
 
 export default function UnidadesHome() {
   const theme = getTheme();
-  const { unities, loading, error, search } = useRegion();
+  const { unities, loading, error, search, selectedUnity, setSelectedUnity } = useRegion();
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedRegion, setSelectedRegion] = useState("todas")
 
@@ -209,7 +209,7 @@ export default function UnidadesHome() {
                       variant="outline"
                       className={theme.unidadesHome.unitCard.button.outline}
                     >
-                      <Link href={`/unidades/${unidade.estado}/${unidade.cidade}/${unidade.bairro}`}>
+                      <Link href={unidade.url ?? ""} onClick={() => setSelectedUnity(unidade)}>
                         <ExternalLink className="w-3 h-3" />
                       </Link>
                     </Button>
@@ -271,22 +271,22 @@ export default function UnidadesHome() {
           {[
             {
               icon: MapPin,
-              value: unidades.length,
+              value: `${unities.length}+`,
               label: "Unidades",
             },
             {
               icon: Wrench,
-              value: Array.from(new Set(unidades.map((u) => u.cidade))).length,
+              value: `${Array.from(new Set(unities.map((u) => u.bairro))).length}+`,
               label: "Regiões Atendidas",
             },
             {
               icon: Award,
-              value: (unidades.reduce((sum, u) => sum + u.avaliacao, 0) / unidades.length).toFixed(1),
+              value: (unities.reduce((sum, u) => sum + u.avaliacao, 0) / unities.length).toFixed(1),
               label: "Avaliação Média",
             },
             {
               icon: TrendingUp,
-              value: `${unidades.reduce((sum, u) => sum + u.avaliacoes.length, 0)}+`,
+              value: `${unities.reduce((sum, u) => sum + u.avaliacoes.length, 0)}+`,
               label: "Clientes Atendidos",
             },
           ].map((stat, index) => (

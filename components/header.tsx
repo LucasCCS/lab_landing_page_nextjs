@@ -42,7 +42,7 @@ export default function Header() {
             <div className="flex items-center space-x-4">
               <div className={theme.header.phone.container}>
                 <Phone className={theme.header.phone.icon} />
-                <span>(11) 3000-0000</span>
+                <span>{config.companyPhone}</span>
               </div>
               <Button asChild className={theme.header.button}>
                 <Link href="/agendamento">Agendar visita grátis

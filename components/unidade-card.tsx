@@ -5,6 +5,7 @@ import { Star, MapPin, Phone, Clock, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import type { Unidade } from "@/types/unidade"
 import { getTheme } from "@/lib/get-theme"
+import { useRegion } from "@/context/RegionContext"
 
 interface UnidadeCardProps {
   unidade: Unidade
@@ -12,6 +13,7 @@ interface UnidadeCardProps {
 
 export default function UnidadeCard({ unidade }: UnidadeCardProps) {
   const theme = getTheme();
+  const { setSelectedUnity } = useRegion();
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
       <Star key={index} className={`w-4 h-4 ${index < rating ? theme.unidadeCard.star.filled : theme.unidadeCard.star.empty}`} />
@@ -81,7 +83,7 @@ export default function UnidadeCard({ unidade }: UnidadeCardProps) {
               <span>{unidade.avaliacoes.length} avaliações</span>
             </div>
             <Button asChild size="sm" variant="outline" className={theme.unidadeCard.footer.button}>
-              <Link href={`/unidades/${unidade.estado}/${unidade.cidade}/${unidade.bairro}`}>
+              <Link href={unidade.url ?? ""} onClick={() => setSelectedUnity(unidade)}>
                 Ver Detalhes
                 <ChevronRight className="ml-1 w-4 h-4" />
               </Link>

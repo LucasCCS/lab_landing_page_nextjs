@@ -21,5 +21,6 @@ export interface Unidade {
   }
   especialidades: string[]
   avaliacao: number
-  avaliacoes: Avaliacao[]
+  avaliacoes: Avaliacao[],
+  url?: string
 }

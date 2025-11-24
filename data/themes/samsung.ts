@@ -188,6 +188,7 @@ export const samsung = {
             unselected: 'opacity-80 hover:opacity-100 shadow-sm hover:shadow-lg border-2 border-transparent text-gray-400 hover:text-blue-400 fill-gray-400 hover:fill-blue-400'
         },
         periodOption: 'flex items-center pl-4 space-x-3 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors',
+        periodYearOption: 'flex items-center pl-4 space-x-3 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors',
         confirmation: {
             successBox: 'bg-gradient-to-r from-blue-50 to-emerald-50 border border-blue-200 rounded-2xl p-6',
             successTitle: 'font-bold text-blue-800 mb-4 text-xl',
@@ -205,7 +206,7 @@ export const samsung = {
         }
     },
     header: {
-        container: 'bg-white shadow-sm',
+        container: 'bg-white shadow-sm border-t border-gray-100',
         logoText: 'font-bold text-xl text-gray-900',
         nav: {
             link: 'text-gray-600 hover:text-blue-600 transition-colors'

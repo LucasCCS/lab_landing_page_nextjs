@@ -13,20 +13,26 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon, ChevronLeft, ChevronRight, MapPin, CheckCircle, Sparkles } from "lucide-react"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
+import { ptBR as ptBRCalendar } from "react-day-picker/locale"
 import { getTheme } from "@/lib/get-theme"
 import LavaSeca from "@/asset/icons/lava-seca.svg?component";
 import Secadora from "@/asset/icons/secadora.svg?component";
 import Lavadora from "@/asset/icons/lavadora.svg?component";
 import MaquinaDeLavar from "@/asset/icons/maquina-de-lavar.svg?component";
+import { createSchedule, updateSchedule } from "@/services/schedule.service"
 
-interface FormData {
-  // Etapa 1 - Serviço
-  servico: string
-  problema: string
+export interface ScheduleDataToSave {
+  nome: string
+  telefone: string
+  email: string
+  produto: string
   marca: string
-  modelo: string
-
-  // Etapa 2 - Localização
+  origem: string
+  id_empresa: string
+}
+export interface ScheduleUpdateData  {
+  agendamento_id?: number
+  defeito: string
   cep: string
   endereco: string
   numero: string
@@ -34,27 +40,20 @@ interface FormData {
   bairro: string
   cidade: string
   estado: string
-
-  // Etapa 3 - Agendamento
   data: Date | undefined
   periodo: string
-
-  // Etapa 4 - Dados Pessoais
-  nome: string
-  telefone: string
-  email: string
-  observacoes: string
+  garantia: string
 }
+
+export interface ScheduleData extends ScheduleDataToSave, ScheduleUpdateData {}
 
 export default function AgendamentoForm() {
   const theme = getTheme();
   const [currentStep, setCurrentStep] = useState(1)
   const [isLoadingCep, setIsLoadingCep] = useState(false)
-  const [formData, setFormData] = useState<FormData>({
-    servico: "",
-    problema: "",
-    marca: "",
-    modelo: "",
+  const [formData, setFormData] = useState<ScheduleData>({
+    defeito: "",
+    produto: "",
     cep: "",
     endereco: "",
     numero: "",
@@ -67,7 +66,10 @@ export default function AgendamentoForm() {
     nome: "",
     telefone: "",
     email: "",
-    observacoes: "",
+    garantia: "",
+    marca: process.env.NEXT_PUBLIC_BRAND ?? "",
+    origem: window.location.href,
+    id_empresa: process.env.NEXT_PUBLIC_ID_EMPRESA ?? "",
   })
 
   const steps = [
@@ -97,7 +99,7 @@ export default function AgendamentoForm() {
     }
   ];
 
-  const handleInputChange = (field: keyof FormData, value: any) => {
+  const handleInputChange = (field: keyof ScheduleData, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
@@ -127,6 +129,25 @@ export default function AgendamentoForm() {
 
   const nextStep = () => {
     if (currentStep < 5) {
+      if (currentStep === 2 && formData.agendamento_id === undefined) {
+        createSchedule({
+          nome: formData.nome,
+          telefone: formData.telefone,
+          email: formData.email,
+          produto: formData.produto,
+          id_empresa: formData.id_empresa,
+          origem: formData.origem,
+          marca: formData.marca
+        }).then((response) => {
+          if (response.status) {
+            setFormData((prev) => ({ ...prev, agendamento_id: response.agendamento_id }))
+            setCurrentStep(currentStep + 1)
+            console.log("Agendamento criado com sucesso:", formData.agendamento_id, response.agendamento_id)
+          }
+        })
+        return;
+      }
+
       setCurrentStep(currentStep + 1)
     }
   }
@@ -138,10 +159,35 @@ export default function AgendamentoForm() {
   }
 
   const handleSubmit = () => {
-    // Aqui você implementaria o envio dos dados
-    console.log("Dados do agendamento:", formData)
-    alert("Agendamento realizado com sucesso!")
-    setCurrentStep(5)
+    
+    console.log('update schedule');
+    updateSchedule({
+      agendamento_id: formData.agendamento_id,
+      cep: formData.cep,
+      endereco: formData.endereco,
+      numero: formData.numero,
+      complemento: formData.complemento,
+      bairro: formData.bairro,
+      cidade: formData.cidade,
+      estado: formData.estado,
+      data: formData.data,
+      periodo: formData.periodo,
+      garantia: formData.garantia,
+      defeito: formData.defeito,
+      marca: formData.marca,
+      origem: formData.origem,
+      id_empresa: formData.id_empresa,
+      nome: formData.nome,
+      telefone: formData.telefone,
+      email: formData.email,
+      produto: formData.produto,
+    }).then((response) => {
+      if (response.status) {
+        // setCurrentStep(currentStep + 1)
+        console.log("Agendamento atualizado com sucesso:", formData.agendamento_id, response.agendamento_id)
+      }
+    })
+    // setCurrentStep(5)
   }
 
   return (
@@ -152,11 +198,10 @@ export default function AgendamentoForm() {
 
           <div key={step.number} className="flex items-center">
             <div
-              className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
-                currentStep >= step.number
-                  ? theme.agendamentoForm.step.active
-                  : theme.agendamentoForm.step.inactive
-              }`}
+              className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${currentStep >= step.number
+                ? theme.agendamentoForm.step.active
+                : theme.agendamentoForm.step.inactive
+                }`}
             >
               {currentStep > step.number ? <CheckCircle className="w-6 h-6" /> : step.number}
             </div>
@@ -189,80 +234,117 @@ export default function AgendamentoForm() {
             {/* Etapa 1 - Serviço */}
             {currentStep === 1 && (
               <div className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="nome" className={theme.agendamentoForm.input.label}>
-                  Nome Completo
-                </Label>
-                <Input
-                  id="nome"
-                  value={formData.nome}
-                  onChange={(e) => handleInputChange("nome", e.target.value)}
-                  placeholder="Seu nome completo"
-                  className={theme.agendamentoForm.input.field}
-                />
+                <div className="space-y-2">
+                  <Label htmlFor="nome" className={theme.agendamentoForm.input.label}>
+                    Nome Completo
+                  </Label>
+                  <Input
+                    id="nome"
+                    value={formData.nome}
+                    onChange={(e) => handleInputChange("nome", e.target.value)}
+                    placeholder="Seu nome completo"
+                    className={theme.agendamentoForm.input.field}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="telefone" className={theme.agendamentoForm.input.label}>
+                      Telefone
+                    </Label>
+                    <Input
+                      id="telefone"
+                      value={formData.telefone}
+                      onChange={(e) => handleInputChange("telefone", e.target.value)}
+                      placeholder="(11) 99999-9999"
+                      className={theme.agendamentoForm.input.field}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className={theme.agendamentoForm.input.label}>
+                      E-mail
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange("email", e.target.value)}
+                      placeholder="seu@email.com"
+                      className={theme.agendamentoForm.input.field}
+                    />
+                  </div>
+                </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="telefone" className={theme.agendamentoForm.input.label}>
-                    Telefone
-                  </Label>
-                  <Input
-                    id="telefone"
-                    value={formData.telefone}
-                    onChange={(e) => handleInputChange("telefone", e.target.value)}
-                    placeholder="(11) 99999-9999"
-                    className={theme.agendamentoForm.input.field}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email" className={theme.agendamentoForm.input.label}>
-                    E-mail
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    placeholder="seu@email.com"
-                    className={theme.agendamentoForm.input.field}
-                  />
-                </div>
-              </div>
-            </div>
-              
             )}
 
             {/* Etapa 2 - Produto */}
             {currentStep === 2 && (
               <div className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="servico" className="text-gray-400 font-medium mb-5">
-                  Selecione um produto
-                </Label>
-                <div className="flex gap-4">
-                  {products.map((product, index) => {
-                    const Icon = product.image;
-                    const isSelected = formData.servico === product.name;
-                    return (
-                      <div 
-                        onClick={() => handleInputChange("servico", product.name)}
-                        className={`w-50 cursor-pointer transition-all duration-300 shadow rounded-xl p-4 
+                <div className="space-y-2">
+                  <Label htmlFor="produto" className="text-gray-400 font-medium mb-5">
+                    Selecione um produto
+                  </Label>
+                  <div className="grid grid-cols-2 md:flex gap-4">
+                    {products.map((product, index) => {
+                      const Icon = product.image;
+                      const isSelected = formData.produto === product.name;
+                      return (
+                        <div
+                          onClick={() => handleInputChange("produto", product.name)}
+                          className={`w-full md:w-50 cursor-pointer transition-all duration-300 shadow rounded-xl p-4 
                         text-center align-middle justify-center items-center flex flex-col gap-2
-                        ${isSelected 
-                          ? theme.agendamentoForm.productCard.selected
-                          : theme.agendamentoForm.productCard.unselected
-                        }`}
-                        key={'key-' + index}
-                      >
-                        <Icon className="w-15" />
-                        <Label htmlFor={product.name} className="font-medium mt-2 cursor-pointer">{product.name}</Label>
-                      </div>
-                    )
-                  })}
+                        ${isSelected
+                              ? theme.agendamentoForm.productCard.selected
+                              : theme.agendamentoForm.productCard.unselected
+                            }`}
+                          key={'key-' + index}
+                        >
+                          <Icon className="w-15" />
+                          <Label htmlFor={product.name} className="font-medium mt-2 cursor-pointer">{product.name}</Label>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
+                <div className="space-y-2">
+                  <Label htmlFor="defeito" className="text-gray-400 font-medium mb-5">Defeito apresentado</Label>
+                  <Select
+                    value={formData.defeito}
+                    onValueChange={(value) => handleInputChange("defeito", value)}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Selecione o defeito" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Não liga">Não liga</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="name" className="text-gray-400 font-medium mb-5">Seu produto possui mais de 1 ano de uso?</Label>
+                    <RadioGroup
+                      value={formData.garantia}
+                      onValueChange={(value) => handleInputChange("garantia", value)}
+                      className="grid grid-cols-2"
+                    >
+                      {[
+                        { value: "sim", label: "Sim", id: "sim" },
+                        { value: "nao", label: "Não", id: "nao" },
+                      ].map((garantia) => (
+                        <div
+                          key={garantia.value}
+                          className={theme.agendamentoForm.periodYearOption}
+                        >
+                          <RadioGroupItem value={garantia.value} id={garantia.id} />
+                          <Label htmlFor={garantia.id} className="flex-1 py-4 cursor-pointer font-medium text-gray-700">
+                            {garantia.label}
+                          </Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                  </div>
               </div>
-            </div>
             )}
 
             {/* Etapa 3 - Localização */}
@@ -380,7 +462,7 @@ export default function AgendamentoForm() {
                         className={theme.agendamentoForm.button.calendar}
                       >
                         <CalendarIcon className="mr-3 h-5 w-5" />
-                        {formData.data ? format(formData.data, "PPP", { locale: ptBR }) : "Selecione uma data"}
+                        {formData.data ? format(formData.data, "dd/MM/yyyy", { locale: ptBR }) : "Selecione uma data"}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
@@ -390,6 +472,7 @@ export default function AgendamentoForm() {
                         onSelect={(date) => handleInputChange("data", date)}
                         disabled={(date) => date < new Date()}
                         initialFocus
+                        locale={ptBRCalendar}
                       />
                     </PopoverContent>
                   </Popover>
@@ -431,12 +514,12 @@ export default function AgendamentoForm() {
                     <p className="flex justify-between">
                       <strong>Serviço:</strong>
                       <span>
-                        {formData.servico} - {formData.marca}
+                        {formData.produto} - {formData.marca}
                       </span>
                     </p>
                     <p className="flex justify-between">
                       <strong>Data:</strong>
-                      <span>{formData.data ? format(formData.data, "PPP", { locale: ptBR }) : ""}</span>
+                      <span>{formData.data ? format(formData.data, "dd/MM/yyyy", { locale: ptBR }) : ""}</span>
                     </p>
                     <p className="flex justify-between">
                       <strong>Período:</strong>
@@ -486,17 +569,17 @@ export default function AgendamentoForm() {
       {/* Navigation Buttons */}
       <div className="flex justify-between">
         {currentStep > 1 && currentStep !== 5 ? (
-        <Button
-          variant="outline"
-          onClick={prevStep}
-          disabled={currentStep === 1}
-          className={theme.agendamentoForm.button.prev}
-        >
-          <ChevronLeft className="w-5 h-5 mr-2" />
-          Anterior
-        </Button>
+          <Button
+            variant="outline"
+            onClick={prevStep}
+            disabled={currentStep === 1}
+            className={theme.agendamentoForm.button.prev}
+          >
+            <ChevronLeft className="w-5 h-5 mr-2" />
+            Anterior
+          </Button>
         ) : null}
-        {currentStep < 4  ? (
+        {currentStep < 4 ? (
           <Button
             onClick={nextStep}
             className={theme.agendamentoForm.button.next}

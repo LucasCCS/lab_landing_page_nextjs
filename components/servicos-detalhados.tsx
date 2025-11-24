@@ -22,6 +22,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { getTheme } from "@/lib/get-theme"
+import { config } from "@/data/config"
 
 export default function ServicosDetalhados() {
   const theme = getTheme();
@@ -316,7 +317,7 @@ export default function ServicosDetalhados() {
               >
                 <Link href="tel:(11)3000-0000">
                   <Phone className="w-5 h-5 mr-2" />
-                  Ligar Agora: (11) 3000-0000
+                  Ligar Agora: {config.companyPhone}
                 </Link>
               </Button>
               <Button

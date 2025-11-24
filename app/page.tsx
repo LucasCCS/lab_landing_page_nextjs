@@ -13,8 +13,6 @@ export default async function Home() {
   const theme = getTheme();
   const result = await searchZipcode(config.region.zipcode);
 
-  console.log(result);
-
   return (
     <div className={theme.page.home}>
       <Header />

@@ -16,11 +16,16 @@ interface UnidadePageProps {
 
 export default function UnidadePage({ params }: UnidadePageProps) {
   const theme = getTheme();
-  const { unities, loading, error, search } = useRegion();
+  const { selectedUnity } = useRegion();
 
-  params.then((params) => {
-    console.log(params);
-  });
+  if (!selectedUnity) {
+    notFound()
+  }
+
+  // params.then((params) => {
+  //   search()
+  // });
+
   // if (!unidade) {
   //   notFound()
   // }
@@ -52,7 +57,7 @@ export default function UnidadePage({ params }: UnidadePageProps) {
           <div className={theme.page.card.container}>
             <div className={theme.page.card.glow}></div>
             <div className={theme.page.card.card}>
-              {/* <UnidadeDetalhes unidade={unidade} /> */}
+              <UnidadeDetalhes unidade={selectedUnity} />
             </div>
           </div>
         </div>

@@ -54,3 +54,10 @@ export async function searchZipcode(zipcode: string): Promise<any[] | null> {
     return null;
   }
 }
+
+export async function searchRegion(cidade: string, bairro: string, estado: string): Promise<any[] | null> {
+  const url = `https://viacep.com.br/ws/${estado}/${cidade}/${bairro}/json/`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
+}

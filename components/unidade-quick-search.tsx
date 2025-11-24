@@ -10,7 +10,7 @@ import { useRegion } from "@/context/RegionContext"
 import { Unidade } from "@/types/unidade"
 
 export default function UnidadeQuickSearch() {
-  const { unities, loading, error, search } = useRegion();
+  const { unities, loading, error, search, setSelectedUnity } = useRegion();
   const [filteredUnidades, setFilteredUnidades] = useState<Unidade[]>([]);
   const [searchTerm, setSearchTerm] = useState("")
   const [isSearching, setIsSearching] = useState(false)
@@ -24,7 +24,7 @@ export default function UnidadeQuickSearch() {
   // })
 
   const handleSearch = (value: string) => {
-    search(value).then((unities: Unidade[]) => {
+    search({ zipcode: value }).then((unities: Unidade[]) => {
 
       const result = unities.slice(0, 2);
 
@@ -65,9 +65,12 @@ export default function UnidadeQuickSearch() {
                     {filteredUnidades.slice(0, 5).map((unidade, index) => (
                       <Link
                         key={unidade.id}
-                        href={`/unidades/${unidade.estado}/${unidade.cidade}/${unidade.bairro}`}
+                        href={unidade.url ?? ""}
                         className="block p-4 hover:bg-blue-50 transition-all duration-300 group"
-                        onClick={() => setIsSearching(false)}
+                        onClick={() => {
+                          setIsSearching(false)
+                          setSelectedUnity(unidade)
+                        }}
                       >
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
