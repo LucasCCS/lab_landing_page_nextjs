@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -68,9 +68,18 @@ export default function AgendamentoForm() {
     email: "",
     garantia: "",
     marca: process.env.NEXT_PUBLIC_BRAND ?? "",
-    origem: window.location.href,
+    origem: "",
     id_empresa: process.env.NEXT_PUBLIC_ID_EMPRESA ?? "",
   })
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setFormData(prev => ({
+        ...prev,
+        origem: window.location.href, // aqui já tem a URL completa
+      }))
+    }
+  }, [])
 
   const steps = [
     { number: 1, title: "Dados de Contato", description: "Informações de contato" },
