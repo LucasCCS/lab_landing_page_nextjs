@@ -1,5 +1,7 @@
 export const config = {
-  title: process.env.NEXT_PUBLIC_SITE_NAME,
+  title: process.env.NEXT_PUBLIC_SITE_NAME || "Assistência Técnica",
+  keywords: process.env.NEXT_PUBLIC_KEYWORDS || "Assistência Técnica, Lavadoras, Secadoras, Refrigeradores",
+  author: process.env.NEXT_PUBLIC_AUTHOR || "Assistência Técnica",
   companyName: process.env.NEXT_PUBLIC_COMPANY_NAME || "Assistência Técnica",
   companyPhone: process.env.NEXT_PUBLIC_COMPANY_PHONE || "(11) 3000-0000",
   companyWhatsapp: process.env.NEXT_PUBLIC_COMPANY_WHATSAPP || "(11) 99999-9999",

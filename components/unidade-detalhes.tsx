@@ -103,7 +103,7 @@ export default function UnidadeDetalhes({ unidade }: UnidadeDetalhesProps) {
       <Tabs defaultValue="avaliacoes">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="avaliacoes">Avaliações</TabsTrigger>
-          <TabsTrigger value="localizacao">Localização</TabsTrigger>
+          {/* <TabsTrigger value="localizacao">Localização</TabsTrigger>  */}
         </TabsList>
 
         <TabsContent value="avaliacoes" className="mt-6">

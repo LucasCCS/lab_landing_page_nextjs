@@ -21,7 +21,6 @@ export default function Header() {
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center space-x-2">
               <Image src={`/themes/${theme.name}/${theme.logo.image}`} alt={config.title || ""} width={theme.logo?.width ?? 150} height={theme.logo?.height ?? 150} />
-              <span className={theme.header.logoText}>{config.title}</span>
             </Link>
 
             <nav className="hidden md:flex items-center space-x-8">

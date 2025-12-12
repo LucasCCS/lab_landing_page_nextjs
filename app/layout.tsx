@@ -30,7 +30,14 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en">
+    <html lang="pt-BR">
+      <head>
+        <title>{config.title}</title>
+        <meta name="description" content={config.description} />
+        <meta name="keywords" content={config.keywords} />
+        <meta name="author" content={config.author} />
+        <meta name="robots" content="index, follow" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

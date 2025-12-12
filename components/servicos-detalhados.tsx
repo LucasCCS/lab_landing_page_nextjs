@@ -19,6 +19,8 @@ import {
   Settings,
   Award,
   Users,
+  WashingMachine,
+  Refrigerator,
 } from "lucide-react"
 import Link from "next/link"
 import { getTheme } from "@/lib/get-theme"
@@ -31,7 +33,7 @@ export default function ServicosDetalhados() {
   const servicos = [
     {
       id: "lavadoras",
-      icon: Waves,
+      icon: WashingMachine,
       title: "Lavadoras",
       description: "Reparo completo e manutenção de lavadoras de todas as marcas",
       category: "eletrodomesticos",
@@ -59,7 +61,7 @@ export default function ServicosDetalhados() {
     },
     {
       id: "secadoras",
-      icon: Wind,
+      icon: WashingMachine,
       title: "Secadoras",
       description: "Manutenção e reparo especializado em secadoras residenciais",
       category: "eletrodomesticos",
@@ -86,10 +88,66 @@ export default function ServicosDetalhados() {
       brands: ["Brastemp", "Electrolux", "LG", "Samsung", "Bosch", "Whirlpool"],
     },
     {
+      id: "lava-e-seca",
+      icon: WashingMachine,
+      title: "Lava E seca",
+      description: "Reparo completo de lava e seca de todas as marcas",
+      category: "eletrodomesticos",
+      price: "Grátis",
+      duration: "1-2 horas",
+      warranty: "90 dias",
+      rating: 4.9,
+      reviews: 312,
+      features: [
+        "Troca de peças",
+        "Limpeza interna",
+        "Verificação de vedação",
+        "Teste de funcionamento",
+        "Garantia estendida",
+      ],
+      problems: [
+        "Não liga",
+        "Não centrifuga",
+        "Vazamento de água",
+        "Ruído excessivo",
+        "Não drena a água",
+        "Problemas no painel",
+      ],
+      brands: ["Brastemp", "Electrolux", "LG", "Samsung", "Consul", "Bosch"],
+    },
+    {
+      id: "maquina-de-lavar",
+      icon: WashingMachine,
+      title: "Máquina de Lavar",
+      description: "Reparo completo de máquina de lavar de todas as marcas",
+      category: "eletrodomesticos",
+      price: "Grátis",
+      duration: "1-2 horas",
+      warranty: "90 dias",
+      rating: 4.9,
+      reviews: 312,
+      features: [
+        "Troca de peças",
+        "Limpeza interna",
+        "Verificação de vedação",
+        "Teste de funcionamento",
+        "Garantia estendida",
+      ],
+      problems: [
+        "Não liga",
+        "Não centrifuga",
+        "Vazamento de água",
+        "Ruído excessivo",
+        "Não drena a água",
+        "Problemas no painel",
+      ],
+      brands: ["Brastemp", "Electrolux", "LG", "Samsung", "Consul", "Bosch"],
+    },
+    {
       id: "refrigeradores",
-      icon: Snowflake,
+      icon: Refrigerator,
       title: "Refrigeradores",
-      description: "Troca de filtros e manutenção completa de refrigeradores",
+      description: "Troca de filtros",
       category: "eletrodomesticos",
       price: "Grátis",
       duration: "30min - 2 horas",
@@ -117,7 +175,7 @@ export default function ServicosDetalhados() {
 
   const categories = [
     { id: "todos", label: "Todos os Serviços", icon: Settings },
-    { id: "eletrodomesticos", label: "Eletrodomésticos", icon: Waves },
+    // { id: "eletrodomesticos", label: "Eletrodomésticos", icon: Waves },
     // { id: "climatizacao", label: "Climatização", icon: Wind },
     // { id: "cozinha", label: "Cozinha", icon: Zap },
   ]

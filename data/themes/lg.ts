@@ -2,11 +2,11 @@
 export const lg = {
     name: 'lg',
     logo: {
-        image: 'logo.png',
-        width: 150,
-        height: 150,
+        image: 'logo.svg',
+        width: 100,
+        height: 100,
     },
-    logoFooter: 'logo_footer.png',
+    logoFooter: 'logo.svg',
     floatingContactList: {
         button: 'cursor-pointer transition-all duration-300 hover:scale-115 rounded-full p-3 flex flex-col gap-4 shadow-lg',
         whatsapp: 'bg-green-500 hover:bg-green-600',
@@ -200,7 +200,8 @@ export const lg = {
             infoBox: 'bg-gradient-to-r from-rose-50 to-cyan-50 border border-rose-200 rounded-2xl p-6',
             infoTitle: 'font-bold text-rose-800 mb-4 text-lg',
             infoText: 'text-rose-700',
-            checkIcon: 'w-5 h-5 mr-2 mt-0.5 text-rose-600'
+            checkIcon: 'w-5 h-5 mr-2 mt-0.5 text-rose-600',
+            scheduleCode: 'bg-rose-500 rounded-sm p-2 text-white font-medium'
         },
         button: {
             prev: 'h-12 px-6 border-gray-200 hover:bg-gray-50 rounded-xl transition-all duration-300',

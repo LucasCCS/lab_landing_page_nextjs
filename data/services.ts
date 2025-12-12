@@ -1,4 +1,4 @@
-import { Snowflake, Wind, Waves, Wrench, Clock, Shield } from "lucide-react";
+import { Snowflake, Wind, Waves, Wrench, Clock, Shield, WashingMachine } from "lucide-react";
 
 export const services = {	
     products: [
@@ -17,10 +17,10 @@ export const services = {
             price: "Orçamento sem taxa de visita",
           },
           {
-            icon: Snowflake,
-            title: "Refrigeradores",
-            description: "Troca de filtros e manutenção preventiva",
-            features: ["Troca de filtro", "Limpeza do sistema", "Verificação de vedação", "Teste de temperatura"],
+            icon: WashingMachine,
+            title: "Lava E seca",
+            description: "Reparo completo de lava e seca de todas as marcas",
+            features: ["Troca de peças", "Limpeza interna", "Calibração", "Teste de funcionamento"],
             price: "Orçamento sem taxa de visita",
           },
     ],

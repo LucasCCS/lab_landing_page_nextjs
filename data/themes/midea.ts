@@ -199,7 +199,8 @@ export const midea = {
             infoBox: 'bg-gradient-to-r from-sky-50 to-cyan-50 border border-sky-200 rounded-2xl p-6',
             infoTitle: 'font-bold text-sky-800 mb-4 text-lg',
             infoText: 'text-sky-700',
-            checkIcon: 'w-5 h-5 mr-2 mt-0.5 text-sky-600'
+            checkIcon: 'w-5 h-5 mr-2 mt-0.5 text-sky-600',
+            scheduleCode: 'bg-sky-500 rounded-sm p-2 text-white font-medium'
         },
         button: {
             prev: 'h-12 px-6 border-gray-200 hover:bg-gray-50 rounded-xl transition-all duration-300',

@@ -200,7 +200,8 @@ export const samsung = {
             infoBox: 'bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-2xl p-6',
             infoTitle: 'font-bold text-blue-800 mb-4 text-lg',
             infoText: 'text-blue-700',
-            checkIcon: 'w-5 h-5 mr-2 mt-0.5 text-blue-600'
+            checkIcon: 'w-5 h-5 mr-2 mt-0.5 text-blue-600',
+            scheduleCode: 'bg-blue-500 rounded-sm p-2 text-white font-medium'
         },
         button: {
             prev: 'h-12 px-6 border-gray-200 hover:bg-gray-50 rounded-xl transition-all duration-300',
