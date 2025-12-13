@@ -186,8 +186,10 @@ export default function UnidadesHome() {
 
                   <div className="flex items-center justify-between pt-2 border-t border-gray-100">
                     <div className="flex items-center space-x-2">
-                      <Phone className={theme.unidadesHome.unitCard.contact.icon} />
-                      <span className={theme.unidadesHome.unitCard.contact.text}>{unidade.telefone}</span>
+                      <a href={`tel:${unidade.telefone}`} className="flex items-center space-x-2">
+                        <Phone className={theme.unidadesHome.unitCard.contact.icon} />
+                        <span className={theme.unidadesHome.unitCard.contact.text}>{unidade.telefone}</span>
+                      </a>
                     </div>
                     <div className="text-sm text-gray-500 flex items-center">
                       <Users className={theme.unidadesHome.unitCard.reviewIcon} />

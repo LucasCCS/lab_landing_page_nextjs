@@ -5,7 +5,7 @@ export const config = {
   companyName: process.env.NEXT_PUBLIC_COMPANY_NAME || "Assistência Técnica",
   companyPhone: process.env.NEXT_PUBLIC_COMPANY_PHONE || "(11) 3000-0000",
   companyWhatsapp: process.env.NEXT_PUBLIC_COMPANY_WHATSAPP || "(11) 99999-9999",
-  companyEmail: process.env.NEXT_PUBLIC_COMPANY_EMAIL || "contato@assisttech.com.br",
+  companyEmail: process.env.NEXT_PUBLIC_COMPANY_EMAIL || null,
   companyAddress: process.env.NEXT_PUBLIC_COMPANY_ADDRESS || "São Paulo - SP",
   description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
   theme: process.env.NEXT_PUBLIC_THEME,

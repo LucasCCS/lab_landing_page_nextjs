@@ -28,10 +28,13 @@ export default function Footer() {
                   <span className={theme.footer.contact.text}>{config.companyPhone}</span>
                 </a>
               </div>
+
+              {config.companyEmail && (
               <div className={theme.footer.contact.item}>
-                <Mail className={theme.footer.contact.icon} />
-                <span className={theme.footer.contact.text}>{config.companyEmail}</span>
-              </div>
+                  <Mail className={theme.footer.contact.icon} />
+                  <span className={theme.footer.contact.text}>{config.companyEmail}</span>
+                </div>
+              )}
               <div className={theme.footer.contact.item}>
                 <MapPin className={theme.footer.contact.icon} />
                 <span className={theme.footer.contact.text}>{config.companyAddress}</span>
