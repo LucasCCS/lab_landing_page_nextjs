@@ -12,7 +12,7 @@ export const config = {
   brand: process.env.NEXT_PUBLIC_BRAND,
   product: process.env.NEXT_PUBLIC_PRODUCT,
   workingHours: [
-    'Segunda a Sexta: 8h às 18h',
+    'Segunda a Sexta: 8h às 17:45h',
     'Sábado: 8h às 14h',
   ],
   region: {
