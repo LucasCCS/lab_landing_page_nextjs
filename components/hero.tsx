@@ -10,7 +10,7 @@ import Image from "next/image"
 export default function Hero() {
   const theme = getTheme();
   return (
-    <section style={{ backgroundImage: `url(${theme.hero.background.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <section style={{ backgroundImage: `url(/themes/${theme.name}/${theme.hero.background.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <section className={`relative min-h-screen bg-gradient-to-br bg-opacity-40 overflow-hidden ${theme.hero.background.color}`}>
         {/* Background Effects */}
         <div className="absolute inset-0">
@@ -86,7 +86,7 @@ export default function Hero() {
 
             <div className="relative">
               <div className=" block md:hidden flex justify-center items-center">
-                <Image src={ `/themes/${theme.name}/hero-washing-machine.png`} alt={config.title || ""} width={300} height={300} />
+                <Image src={ `/themes/${theme.name}/${theme.hero.image}`} alt={config.title || ""} width={300} height={300} />
               </div>
               {/* Floating Card */}
               <div className={theme.hero.schedule.floatingBorder + ' -mt-15'}>

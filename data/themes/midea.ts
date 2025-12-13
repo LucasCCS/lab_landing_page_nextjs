@@ -12,8 +12,9 @@ export const midea = {
         phone: 'bg-red-600 hover:bg-red-700',
     },
     hero: {
+        image: 'hero-washing-machine.png',
         background: {
-            image: 'https://images.samsung.com/is/image/samsung/p6pim/br/feature/166441956/br-feature-wf90f27-548543147?$FB_TYPE_A_JPG$',
+            image: 'hero-bg.jpg',
             color: `from-sky-600/80 via-sky-700/80 to-sky-800/80 backdrop-blur-sm bg-blend-overlay`,
             effects: [
                 `absolute top-20 left-20 w-72 h-72 bg-sky-400/20 rounded-full blur-3xl animate-pulse`,
