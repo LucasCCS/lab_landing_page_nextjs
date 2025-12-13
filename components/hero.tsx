@@ -65,7 +65,9 @@ export default function Hero() {
                   size="lg"
                   className={theme.button.secondary}
                 >
+                  <Link href="/servicos" className="flex items-center">
                   Ver Serviços
+                  </Link>
                 </Button>
               </div>
 
