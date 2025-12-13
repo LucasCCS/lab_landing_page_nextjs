@@ -13,7 +13,7 @@ export default function Header() {
     <>
       <div className="bg-gray-200 text-gray-300 md:text-left text-center text-xs flex flex-col">
         <div className="container mx-auto md:p-0 px-4">
-          <span className="text-gray-400 md:text-left text-center text-xs p-3 flex flex-col">Central de Atendimento: Atendimento de Segunda à Sábado, das 8:00h às 22:00h.</span>
+          <span className="text-gray-400 md:text-left text-center text-xs p-3 flex flex-col">Central de Atendimento: Atendimento de {config.workingHours.join(', ')}.</span>
         </div>
       </div>
       <header className={theme.header.container + ' md:relative sticky top-0 z-50 transition-all duration-300'}>
@@ -40,8 +40,10 @@ export default function Header() {
 
             <div className="flex items-center space-x-4">
               <div className={theme.header.phone.container}>
-                <Phone className={theme.header.phone.icon} />
-                <span>{config.companyPhone}</span>
+                <a href={`tel:${config.companyPhone}`} className="flex items-center space-x-2">
+                  <Phone className={theme.header.phone.icon} />
+                  <span>{config.companyPhone}</span>
+                </a>
               </div>
               <Button asChild className={theme.header.button}>
                 <Link href="/agendamento">Agendar visita grátis

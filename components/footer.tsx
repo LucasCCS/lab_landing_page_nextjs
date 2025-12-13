@@ -23,8 +23,10 @@ export default function Footer() {
             <h3 className={theme.footer.section.title}>Contato</h3>
             <div className={theme.footer.section.content}>
               <div className={theme.footer.contact.item}>
-                <Phone className={theme.footer.contact.icon} />
-                <span className={theme.footer.contact.text}>{config.companyPhone}</span>
+                <a href={`tel:${config.companyPhone}`} className="flex items-center space-x-2">
+                  <Phone className={theme.footer.contact.icon} />
+                  <span className={theme.footer.contact.text}>{config.companyPhone}</span>
+                </a>
               </div>
               <div className={theme.footer.contact.item}>
                 <Mail className={theme.footer.contact.icon} />

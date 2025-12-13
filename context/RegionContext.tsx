@@ -100,8 +100,8 @@ export const RegionProvider = ({ children, zipcode }: RegionProviderProps) => {
                     cep: u.cep,
                     telefone: config.companyPhone,
                     horario: {
-                        diasUteis: "Segunda a Sexta: 8h às 18h",
-                        sabado: "Sábado: 8h às 14h",
+                        diasUteis: config.workingHours[0],
+                        sabado: config.workingHours[1],
                     },
                     especialidades: ["Lavadora", "Secadora", "Refrigerador"],
                     avaliacao: media,

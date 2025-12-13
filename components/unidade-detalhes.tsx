@@ -71,8 +71,10 @@ export default function UnidadeDetalhes({ unidade }: UnidadeDetalhesProps) {
             <div>
               <h3 className="font-medium mb-2">Contato</h3>
               <div className="flex items-center space-x-2">
-                <Phone className="w-4 h-4 text-gray-400" />
-                <span className="text-sm">{unidade.telefone}</span>
+                <a href={`tel:${unidade.telefone}`} className="flex items-center space-x-2">
+                  <Phone className="w-4 h-4 text-gray-400" />
+                  <span className="text-sm">{unidade.telefone}</span>
+                </a>
               </div>
             </div>
 

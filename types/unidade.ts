@@ -15,7 +15,7 @@ export interface Unidade {
   cep: string
   telefone: string
   horario: {
-  diasUteis: string
+    diasUteis: string
     sabado: string
     domingo?: string
   }

@@ -73,7 +73,9 @@ export default function UnidadeCard({ unidade }: UnidadeCardProps) {
             <div className={theme.unidadeCard.phoneBox.container}>
               <div className={theme.unidadeCard.phoneBox.wrapper}>
                 <Phone className={theme.unidadeCard.phoneBox.icon} />
-                <span className={theme.unidadeCard.phoneBox.text}>{unidade.telefone}</span>
+                <a href={`tel:${unidade.telefone}`} className="flex items-center space-x-2">
+                  <span className={theme.unidadeCard.phoneBox.text}>{unidade.telefone}</span>
+                </a>
               </div>
             </div>
           </div>
