@@ -273,12 +273,12 @@ export default function UnidadesHome() {
           {[
             {
               icon: MapPin,
-              value: `${unities.length}+`,
+              value: `12+`,
               label: "Unidades",
             },
             {
               icon: Wrench,
-              value: `${Array.from(new Set(unities.map((u) => u.bairro))).length}+`,
+              value: '50+',
               label: "Regiões Atendidas",
             },
             {
@@ -288,7 +288,7 @@ export default function UnidadesHome() {
             },
             {
               icon: TrendingUp,
-              value: `${unities.reduce((sum, u) => sum + u.avaliacoes.length, 0)}+`,
+              value: `+190 mil`,
               label: "Clientes Atendidos",
             },
           ].map((stat, index) => (

@@ -2,7 +2,7 @@ import { CheckCircle, Clock, Shield } from "lucide-react";
 import { config } from "./config";
 
 export const hero = {
-  subtitle: "Assistência Técnica Samsung",
+  subtitle: `Assistência Técnica ${config.brand}`,
   title: `Assistência Técnica`,
   description: `Serviços de reparo e manutenção para lavadoras, secadoras e refrigeradores ${config.brand}. Técnicos qualificados, peças originais e garantia estendida.`,
   features: [
