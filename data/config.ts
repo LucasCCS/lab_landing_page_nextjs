@@ -11,6 +11,7 @@ export const config = {
   theme: process.env.NEXT_PUBLIC_THEME,
   brand: process.env.NEXT_PUBLIC_BRAND,
   product: process.env.NEXT_PUBLIC_PRODUCT,
+  googleTagManagerId: process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
   workingHours: [
     'Segunda a Sexta: 8h às 17:45h',
     'Sábado: 8h às 14h',
