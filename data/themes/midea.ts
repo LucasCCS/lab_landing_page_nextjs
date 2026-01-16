@@ -570,6 +570,15 @@ export const midea = {
         secondary: 'border-white/30 bg-white/10 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300',
         primary: 'bg-sky-600 hover:bg-sky-700 text-white border-0 shadow-lg transition-all duration-300',
         outline: 'border-gray-200 hover:bg-gray-50 transition-all duration-300'
+    },
+    lgpdAlert: {
+        wrapper: 'fixed bottom-[-1px] left-0 w-full bg-neutral-900 text-white p-4 z-[9999]',
+        box: 'max-w-[960px] mx-auto flex flex-col gap-3',
+        actions: 'flex justify-end gap-3',
+        reject:
+          'bg-neutral-600 text-white px-4 py-2 text-sm rounded cursor-pointer hover:bg-neutral-500 transition',
+        accept:
+          'bg-green-500 text-black px-4 py-2 text-sm rounded cursor-pointer hover:bg-green-400 transition',
     }
 }
 

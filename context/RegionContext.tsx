@@ -5,6 +5,7 @@ import { Unidade } from "@/types/unidade";
 import { config } from "@/data/config";
 import { createContext, useContext, useEffect, useState } from "react";
 import { calcularMediaAvaliacoes, gerarAvaliacoesAleatorias } from "@/data/reviews";
+import { useUserLocationContext } from "./UserLocationContext";
 
 interface SearchParams {
     zipcode?: string;
@@ -62,6 +63,8 @@ export const RegionProvider = ({ children, zipcode }: RegionProviderProps) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [selectedUnity, setSelectedUnity] = useState<Unidade | null>(null);
+    const { location, loading: loadingUserLocation, error: errorUserLocation } = useUserLocationContext();
+
 
     const search = async (params: SearchParams): Promise<Unidade[]> => {
         const { zipcode, cidade, bairro, estado } = params;
@@ -125,12 +128,16 @@ export const RegionProvider = ({ children, zipcode }: RegionProviderProps) => {
     // primeira carga pelo zipcode vindo de fora
     useEffect(() => {
         if (!zipcode) return;
+        
+        if (location) {
+            zipcode = location.cep ?? "";
+        }
 
         search({ zipcode }).catch((err) => {
             console.error(err);
             setError(err?.message ?? "Erro ao buscar região inicial.");
         });
-    }, [zipcode]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [zipcode,location]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <RegionContext.Provider value={{ unities, loading, error, search, selectedUnity, setSelectedUnity }}>

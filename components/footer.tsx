@@ -43,18 +43,6 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className={theme.footer.section.title}>Horário de Funcionamento</h3>
-            <div className={theme.footer.section.hours}>
-              {config.workingHours.map((hour, index) => (
-                <div key={index} className={theme.footer.contact.item}>
-                  <Clock className={theme.footer.contact.icon} />
-                  <span className={theme.footer.contact.text}>{hour}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
             <h3 className={theme.footer.section.title}>Serviços</h3>
             <ul className={theme.footer.services.list}>
               {content.services.products.map((product, index) => (
