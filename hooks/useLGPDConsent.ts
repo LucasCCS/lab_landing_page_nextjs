@@ -17,6 +17,9 @@ export function useLGPDConsent() {
   function accept() {
     localStorage.setItem(CONSENT_KEY, 'accepted');
     setStatus('accepted');
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('lgpd-accepted'));
+    }
   }
 
   function reject() {

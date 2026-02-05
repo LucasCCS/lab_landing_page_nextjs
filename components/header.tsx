@@ -9,6 +9,7 @@ import Image from "next/image"
 
 export default function Header() {
   const theme = getTheme();
+  const phone = ''
   return (
     <>
       <div className="bg-gray-200 text-gray-300 md:text-left text-center text-xs flex flex-col">
@@ -40,9 +41,9 @@ export default function Header() {
 
             <div className="flex items-center space-x-4">
               <div className={theme.header.phone.container}>
-                <a href={`tel:${config.companyPhone}`} className="flex items-center space-x-2">
+                <a href={`tel:${phone}`} className="flex items-center space-x-2">
                   <Phone className={theme.header.phone.icon} />
-                  <span>{config.companyPhone}</span>
+                  <span>{phone}</span>
                 </a>
               </div>
               <Button asChild className={theme.header.button}>

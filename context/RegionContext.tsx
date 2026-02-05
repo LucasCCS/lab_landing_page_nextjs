@@ -101,7 +101,7 @@ export const RegionProvider = ({ children, zipcode }: RegionProviderProps) => {
                     cidade,
                     estado,
                     cep: u.cep,
-                    telefone: config.companyPhone,
+                    telefone: config.companyPhone.find(phone => phone.includes(`(${u.ddd})`)) ?? config.companyPhone[0],
                     horario: {
                         diasUteis: config.workingHours[0],
                         sabado: config.workingHours[1],

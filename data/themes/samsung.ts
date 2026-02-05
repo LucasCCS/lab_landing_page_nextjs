@@ -573,7 +573,7 @@ export const samsung = {
         outline: 'border-gray-200 hover:bg-gray-50 transition-all duration-300'
     },
     lgpdAlert: {
-        wrapper: 'fixed bottom-[-5px] left-0 w-full bg-white text-gray-500 p-4 pt-6 pb-6 z-[9999] shadow-lg rounded-t-3xl',
+        wrapper: 'fixed bottom-[-5px] left-0 w-full bg-white text-gray-500 p-4 pt-6 pb-6 z-[9999]  shadow-lg rounded-t-3xl',
         box: 'max-w-[960px] mx-auto flex flex-col gap-3',
         actions: 'flex justify-end gap-3',
     }

@@ -1,11 +1,15 @@
+"use client"
+
 import { config } from "@/data/config"
 import { content } from "@/data/content"
 import { Phone, Mail, MapPin, Clock } from "lucide-react"
 import { getTheme } from "@/lib/get-theme"
+import { useUserLocationContext } from "@/context/UserLocationContext"
 import Image from "next/image"
 
 export default function Footer() {
   const theme = getTheme();
+  const { phone } = useUserLocationContext();
   return (
     <footer id="contato" className={theme.footer.container}>
       <div className="container mx-auto px-4">
@@ -23,9 +27,9 @@ export default function Footer() {
             <h3 className={theme.footer.section.title}>Contato</h3>
             <div className={theme.footer.section.content}>
               <div className={theme.footer.contact.item}>
-                <a href={`tel:${config.companyPhone}`} className="flex items-center space-x-2">
+                <a href={`tel:${phone}`} className="flex items-center space-x-2">
                   <Phone className={theme.footer.contact.icon} />
-                  <span className={theme.footer.contact.text}>{config.companyPhone}</span>
+                  <span className={theme.footer.contact.text}>{phone}</span>
                 </a>
               </div>
 
