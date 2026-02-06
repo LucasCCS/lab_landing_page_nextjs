@@ -6,10 +6,11 @@ import { ArrowRight, Home, MapPin, Phone, Wrench } from "lucide-react"
 import { config } from "@/data/config"
 import { getTheme } from "@/lib/get-theme"
 import Image from "next/image"
+import { useRegion } from "@/context/RegionContext"
 
 export default function Header() {
   const theme = getTheme();
-  const phone = ''
+  const { phone } = useRegion();
   return (
     <>
       <div className="bg-gray-200 text-gray-300 md:text-left text-center text-xs flex flex-col">

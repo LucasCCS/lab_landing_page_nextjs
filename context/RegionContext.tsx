@@ -16,6 +16,8 @@ interface SearchParams {
 
 interface RegionContextProps {
     unities: Unidade[];
+    phone: string;
+    whatsapp: string;
     loading: boolean;
     error: string | null;
     selectedUnity: Unidade | null;
@@ -25,6 +27,8 @@ interface RegionContextProps {
 
 const RegionContext = createContext<RegionContextProps>({
     unities: [],
+    phone: '',
+    whatsapp: '',
     loading: false,
     error: null,
     selectedUnity: null, 
@@ -60,6 +64,8 @@ const makeUrl = (u: { estado?: string; cidade?: string; bairro?: string }): stri
 
 export const RegionProvider = ({ children, zipcode }: RegionProviderProps) => {
     const [unities, setUnities] = useState<Unidade[]>([]);
+    const [phone, setPhone] = useState<string>('');
+    const [whatsapp, setWhatsapp] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [selectedUnity, setSelectedUnity] = useState<Unidade | null>(null);
@@ -94,6 +100,10 @@ export const RegionProvider = ({ children, zipcode }: RegionProviderProps) => {
 
                 const media = calcularMediaAvaliacoes(avaliacoes);
 
+                const phoneFinded = config.companyPhone.find(phone => phone.includes(`(${u.ddd})`)) ?? config.companyPhone[0];
+                const whatsappFinded = config.companyWhatsapp.find(whatsapp => whatsapp.includes(`(${u.ddd})`)) ?? config.companyWhatsapp[0];
+                setPhone(phoneFinded);
+                setWhatsapp(whatsappFinded);
                 return {
                     id: u.cep,
                     nome: `${config.companyName} ${config.brand} ${bairro}`,
@@ -101,7 +111,8 @@ export const RegionProvider = ({ children, zipcode }: RegionProviderProps) => {
                     cidade,
                     estado,
                     cep: u.cep,
-                    telefone: config.companyPhone.find(phone => phone.includes(`(${u.ddd})`)) ?? config.companyPhone[0],
+                    telefone: phoneFinded,
+                    whatsapp: whatsappFinded,
                     horario: {
                         diasUteis: config.workingHours[0],
                         sabado: config.workingHours[1],
@@ -140,7 +151,7 @@ export const RegionProvider = ({ children, zipcode }: RegionProviderProps) => {
     }, [zipcode,location]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <RegionContext.Provider value={{ unities, loading, error, search, selectedUnity, setSelectedUnity }}>
+        <RegionContext.Provider value={{ unities, phone, whatsapp, loading, error, search, selectedUnity, setSelectedUnity }}>
             {children}
         </RegionContext.Provider>
     );

@@ -66,8 +66,8 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-          <FloatingContactList />
           <Providers zipcode={config.region.zipcode ?? ""}>
+              <FloatingContactList />
               {children}
           </Providers>
 

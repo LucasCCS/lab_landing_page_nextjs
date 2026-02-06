@@ -40,7 +40,9 @@ export default function UnidadesHome() {
     return matchesSearch && matchesRegion
   })
 
-  const displayedUnidades = unities.slice(0, 6)
+  const displayedUnidades = unities.slice(0, 6);
+
+  console.log(displayedUnidades);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
@@ -283,7 +285,7 @@ export default function UnidadesHome() {
             },
             {
               icon: Award,
-              value: (unities.reduce((sum, u) => sum + u.avaliacao, 0) / unities.length).toFixed(1),
+              value: (unities.reduce((sum, u) => sum + u.avaliacao, 0) / unities.length).toFixed(1) || 5,
               label: "Avaliação Média",
             },
             {
