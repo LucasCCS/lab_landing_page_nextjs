@@ -41,7 +41,6 @@ export default function ReviewForm() {
     // Simular envio da avaliação
     await new Promise((resolve) => setTimeout(resolve, 1500))
 
-    console.log("Avaliação enviada:", formData)
     setSubmitted(true)
     setIsSubmitting(false)
   }

@@ -12,7 +12,6 @@ export async function createSchedule(schedule: ScheduleDataToSave): Promise<any>
 }
 
 export async function updateSchedule(schedule: ScheduleData): Promise<any> {
-    console.log('update schedule', schedule);
     const formData = toFormData(schedule);
     const response = await fetch(`${process.env.NEXT_PUBLIC_SCHEDULE_URL}agendamento/editar`, {
     method: "POST",

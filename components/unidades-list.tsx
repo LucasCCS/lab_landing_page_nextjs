@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -10,32 +10,50 @@ import UnidadeCard from "@/components/unidade-card"
 import { unidades } from "@/data/unidades"
 import { getTheme } from "@/lib/get-theme"
 import { useRegion } from "@/context/RegionContext"
+import { Unidade } from "@/types/unidade"
 
-export default function UnidadesList() {
+export default function UnidadesListUnidadesList() {
   const theme = getTheme();
-  const { unities, loading, error, search } = useRegion();
+  const { unities: unitiesListRegion, loading, error, search } = useRegion();
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedRegion, setSelectedRegion] = useState("todas")
   const [selectedSpecialty, setSelectedSpecialty] = useState("todas")
+
+  const [unities, setUnities] = useState<Unidade[]>([]);
   
 
+  useEffect(() => {
+    setUnities(unitiesListRegion);
+  }, [unitiesListRegion]);
+
   // Extrair regiões únicas
-  const regions = ["todas", ...Array.from(new Set(unities.map((unidade) => unidade.regiao)))]
+  // const regions = ["todas", ...Array.from(new Set(unities.map((unidade) => unidade.regiao)))]
 
   // Extrair especialidades únicas
   const specialties = ["todas", ...Array.from(new Set(unities.flatMap((unidade) => unidade.especialidades)))]
 
   // Filtrar unidades
-  const filteredUnidades = unities.filter((unidade) => {
-    const matchesSearch =
-      searchTerm === "" || unidade.cep.toLowerCase().includes(searchTerm.toLowerCase())
+  // const filteredUnidades = unities.filter((unidade) => {
+  //   const matchesSearch =
+  //     searchTerm === "" || unidade.cep.toLowerCase().includes(searchTerm.toLowerCase())
 
-    const matchesRegion = selectedRegion === "todas" || unidade.regiao === selectedRegion
+  //     // if (searchTerm.length >= 8) {
+  //     //   search({ zipcode: searchTerm });
+  //     // }
+  //   // const matchesRegion = selectedRegion === "todas" || unidade.regiao === selectedRegion
 
-    const matchesSpecialty = selectedSpecialty === "todas" || unidade.especialidades.includes(selectedSpecialty)
+  //   const matchesSpecialty = selectedSpecialty === "todas" || unidade.especialidades.includes(selectedSpecialty)
 
-    return matchesSearch && matchesRegion && matchesSpecialty
-  })
+  //   return matchesSearch && matchesSpecialty
+  // })
+
+  useEffect(() => {
+    if (searchTerm.length >= 8) {
+      search({ zipcode: searchTerm }).then((unities: Unidade[]) => {
+        setUnities(unities);
+      }) 
+    }
+  }, [searchTerm]);
 
   return (
     <div className={theme.unidadesList.container}>
@@ -48,7 +66,7 @@ export default function UnidadesList() {
               <div className={theme.unidadesList.filters.input.container}>
                 <Search className={theme.unidadesList.filters.input.icon} />
                 <Input
-                  placeholder="Buscar por nome ou endereço..."
+                  placeholder="Buscar por nome, cep..."
                   className={theme.unidadesList.filters.input.field}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -93,7 +111,7 @@ export default function UnidadesList() {
       <div>
         <div className={theme.unidadesList.results.container}>
           <p className={theme.unidadesList.results.count}>
-            {filteredUnidades.length} {filteredUnidades.length === 1 ? "unidade encontrada" : "unidades encontradas"}
+            {unities.length} {unities.length === 1 ? "unidade encontrada" : "unidades encontradas"}
           </p>
           {/* <Tabs defaultValue="lista" className={theme.unidadesList.results.tabs.container}>
             <TabsList className={theme.unidadesList.results.tabs.list}>
@@ -118,7 +136,7 @@ export default function UnidadesList() {
         <Tabs defaultValue="lista" className="w-full">
           <TabsContent value="lista" className={theme.unidadesList.results.content.lista}>
             <div className={theme.unidadesList.results.content.grid}>
-              {filteredUnidades.map((unidade) => (
+              {unities.map((unidade) => (
                 <UnidadeCard key={unidade.id} unidade={unidade} />
               ))}
             </div>

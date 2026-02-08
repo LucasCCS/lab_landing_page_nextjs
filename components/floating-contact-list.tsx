@@ -9,7 +9,6 @@ import { useRegion } from "@/context/RegionContext";
 export default function FloatingContactList() {
     const theme = getTheme();
     const { phone, whatsapp } = useRegion();
-    console.log(phone);
     return (
         <>
         <div className="fixed bottom-5 right-5 z-50">

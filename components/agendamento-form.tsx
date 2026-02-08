@@ -90,7 +90,7 @@ export default function AgendamentoForm() {
       { number: 2, title: "Produto", description: "Dados do Produto" },
       { number: 3, title: "Localização", description: "Endereço do atendimento" },
       { number: 4, title: "Agendamento", description: "Data e horário" },
-      { number: 5, title: "Confirmação", description: "Confirmação do agendamento" },
+      { number: 5, title: "Agendamento Confirmado", description: "Confirmação do agendamento" },
     ],
     []
   )
@@ -168,7 +168,6 @@ export default function AgendamentoForm() {
   }
 
   function applyZodErrors(issues: z.ZodIssue[]) {
-    console.log(issues)
     issues.forEach((issue) => {
       const field = issue.path?.[0] as keyof ScheduleData | undefined
       if (!field) return
@@ -178,7 +177,6 @@ export default function AgendamentoForm() {
         message: issue.message,
       })
     })
-    console.log(errors)
   }
 
   async function validateCurrentStep(step: number) {
@@ -208,9 +206,7 @@ export default function AgendamentoForm() {
     if (!ok) return
 
     // cria o agendamento ao sair do step 2 (mantendo seu comportamento)
-    console.log(currentStep === 2, !getValues("agendamento_id"));
     if (currentStep === 2 && !getValues("agendamento_id")) {
-      console.log("criando agendamento")
       const values = getValues()
       const response = await createSchedule({
         nome: values.nome,
@@ -661,18 +657,18 @@ export default function AgendamentoForm() {
                 <div className={theme.agendamentoForm.confirmation.infoBox}>
                   <h4 className={theme.agendamentoForm.confirmation.infoTitle}>Próximos Passos</h4>
                   <ul className={`${theme.agendamentoForm.confirmation.infoText} space-y-2`}>
-                    <li className="flex items-start">
+                    {/* <li className="flex items-start">
                       <CheckCircle className={theme.agendamentoForm.confirmation.checkIcon} />
                       Você receberá uma confirmação por WhatsApp em até 30 minutos
-                    </li>
+                    </li> */}
                     <li className="flex items-start">
                       <CheckCircle className={theme.agendamentoForm.confirmation.checkIcon} />
                       Nosso técnico entrará em contato 1 hora antes do atendimento
                     </li>
-                    <li className="flex items-start">
+                    {/* <li className="flex items-start">
                       <CheckCircle className={theme.agendamentoForm.confirmation.checkIcon} />
                       Tenha em mãos um documento com foto
-                    </li>
+                    </li> */}
                     <li className="flex items-start">
                       <CheckCircle className={theme.agendamentoForm.confirmation.checkIcon} />
                       O diagnóstico é gratuito

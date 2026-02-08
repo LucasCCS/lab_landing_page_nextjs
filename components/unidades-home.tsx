@@ -42,8 +42,6 @@ export default function UnidadesHome() {
 
   const displayedUnidades = unities.slice(0, 6);
 
-  console.log(displayedUnidades);
-
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
       <Star key={index} className={`w-3 h-3 ${index < rating ? theme.unidadesHome.unitCard.rating.star.filled : theme.unidadesHome.unitCard.rating.star.empty}`} />

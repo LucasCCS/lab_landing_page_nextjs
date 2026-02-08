@@ -39,7 +39,6 @@ export default function AdminUnidades() {
   const handleDelete = (id: string) => {
     if (confirm("Tem certeza que deseja excluir esta unidade?")) {
       // Implementar lógica de exclusão
-      console.log("Excluindo unidade:", id)
     }
   }
 
