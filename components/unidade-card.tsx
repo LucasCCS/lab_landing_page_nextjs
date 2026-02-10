@@ -19,7 +19,6 @@ export default function UnidadeCard({ unidade }: UnidadeCardProps) {
       <Star key={index} className={`w-4 h-4 ${index < rating ? theme.unidadeCard.star.filled : theme.unidadeCard.star.empty}`} />
     ))
   }
-
   return (
     <div className={theme.unidadeCard.container}>
       <div className={theme.unidadeCard.glow}></div>

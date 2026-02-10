@@ -237,7 +237,7 @@ export default function Testimonials() {
               Agendar Serviço
             </a>
             <a
-              href="#servicos"
+              href="/servicos"
               className={theme.testimonials.cta.secondary}
             >
               Ver Serviços

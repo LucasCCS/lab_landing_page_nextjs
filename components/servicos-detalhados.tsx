@@ -25,11 +25,12 @@ import {
 import Link from "next/link"
 import { getTheme } from "@/lib/get-theme"
 import { config } from "@/data/config"
+import { useRegion } from "@/context/RegionContext"
 
 export default function ServicosDetalhados() {
   const theme = getTheme();
   const [selectedCategory, setSelectedCategory] = useState("todos")
-
+  const { phone } = useRegion();
   const servicos = [
     {
       id: "lavadoras",
@@ -373,9 +374,9 @@ export default function ServicosDetalhados() {
                 size="lg"
                 className={theme.servicosDetalhados.emergency.button.primary}
               >
-                <Link href="tel:(11)3000-0000">
+                <Link href={`tel:${phone}`}>
                   <Phone className="w-5 h-5 mr-2" />
-                  Ligar Agora: {config.companyPhone}
+                  Ligar Agora: {phone}
                 </Link>
               </Button>
               <Button

@@ -82,7 +82,6 @@ export default function AdminServicos() {
 
   const handleDelete = (id: string) => {
     if (confirm("Tem certeza que deseja excluir este serviço?")) {
-      console.log("Excluindo serviço:", id)
     }
   }
 

@@ -14,6 +14,7 @@ export interface Unidade {
   cidade: string
   cep: string
   telefone: string
+  whatsapp: string
   horario: {
     diasUteis: string
     sabado: string

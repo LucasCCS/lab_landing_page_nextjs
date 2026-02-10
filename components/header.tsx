@@ -6,14 +6,16 @@ import { ArrowRight, Home, MapPin, Phone, Wrench } from "lucide-react"
 import { config } from "@/data/config"
 import { getTheme } from "@/lib/get-theme"
 import Image from "next/image"
+import { useRegion } from "@/context/RegionContext"
 
 export default function Header() {
   const theme = getTheme();
+  const { phone } = useRegion();
   return (
     <>
       <div className="bg-gray-200 text-gray-300 md:text-left text-center text-xs flex flex-col">
         <div className="container mx-auto md:p-0 px-4">
-          <span className="text-gray-400 md:text-left text-center text-xs p-3 flex flex-col">Central de Atendimento: Atendimento de {config.workingHours.join(', ')}.</span>
+          <span className="text-gray-400 md:text-left text-center text-xs p-3 flex flex-col">Central de Atendimento: Atendimento 24 horas disponível para agendamento de visita de forma grátis.</span>
         </div>
       </div>
       <header className={theme.header.container + ' md:relative sticky top-0 z-50 transition-all duration-300'}>
@@ -40,9 +42,9 @@ export default function Header() {
 
             <div className="flex items-center space-x-4">
               <div className={theme.header.phone.container}>
-                <a href={`tel:${config.companyPhone}`} className="flex items-center space-x-2">
+                <a href={`tel:${phone}`} className="flex items-center space-x-2">
                   <Phone className={theme.header.phone.icon} />
-                  <span>{config.companyPhone}</span>
+                  <span>{phone}</span>
                 </a>
               </div>
               <Button asChild className={theme.header.button}>

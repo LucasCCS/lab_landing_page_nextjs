@@ -3,8 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { config } from "@/data/config";
 import FloatingContactList from "@/components/floating-contact-list";
-import { RegionProvider } from "@/context/RegionContext";
 import Script from "next/script";
+import { Providers } from "./providers";
+import LGPDAlert from "@/components/LGPDAlert";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,10 +66,12 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-          <FloatingContactList />
-          <RegionProvider zipcode={config.region.zipcode ?? ""}>
-            {children}
-          </RegionProvider>
+          <Providers zipcode={config.region.zipcode ?? ""}>
+              <FloatingContactList />
+              {children}
+          </Providers>
+
+          <LGPDAlert />
       </body>
     </html>
   );
