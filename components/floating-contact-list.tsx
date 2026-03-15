@@ -9,6 +9,10 @@ import { useRegion } from "@/context/RegionContext";
 export default function FloatingContactList() {
     const theme = getTheme();
     const { phone, whatsapp } = useRegion();
+
+    const formatPhone = (phone: string) => {
+        return phone.replace(/[^a-zA-Z0-9]/g, "");
+    }
     return (
         <>
         <div className="fixed bottom-5 right-5 z-50">
@@ -19,7 +23,7 @@ export default function FloatingContactList() {
                     </div>
                 </div>
             </a>
-            <a target="_blank" href={`https://api.whatsapp.com/send?phone=${whatsapp}&text=Olá, preciso de suporte!`} className="flex items-center space-x-2">
+            <a target="_blank" href={`https://api.whatsapp.com/send?phone=${formatPhone(whatsapp)}&text=Olá, preciso de suporte!`} className="flex items-center space-x-2">
                 <div className="relative flex items-center justify-center">
                     <div className={`absolute p-5 w-10 h-10 animate-ping ${theme.floatingContactList.whatsapp} ${theme.floatingContactList.button} mt-4`}></div>
                     <div className={`${theme.floatingContactList.button} ${theme.floatingContactList.whatsapp} mt-4`}>
