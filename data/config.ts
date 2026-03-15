@@ -6,6 +6,7 @@ export const config = {
   companyPhone: process.env.NEXT_PUBLIC_COMPANY_PHONE?.split(',')?.map(phone => phone.trim()) || ["(11) 3000-0000"],
   companyWhatsapp: process.env.NEXT_PUBLIC_COMPANY_WHATSAPP?.split(',')?.map(whatsapp => whatsapp.trim()) || ["(11) 99999-9999"],
   companyEmail: process.env.NEXT_PUBLIC_COMPANY_EMAIL || null,
+  defaultDDD: process.env.NEXT_PUBLIC_DEFAULT_DDD || "11",
   companyAddress: process.env.NEXT_PUBLIC_COMPANY_ADDRESS || "São Paulo - SP",
   description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
   theme: process.env.NEXT_PUBLIC_THEME,

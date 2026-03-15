@@ -283,7 +283,7 @@ export default function UnidadesHome() {
             },
             {
               icon: Award,
-              value: (unities.reduce((sum, u) => sum + u.avaliacao, 0) / unities.length).toFixed(1) || 5,
+              value: unities.length > 0 ? (unities.reduce((sum, u) => sum + u.avaliacao, 0) / unities.length).toFixed(1) : 5,
               label: "Avaliação Média",
             },
             {

@@ -1,5 +1,6 @@
 
 const ZIPCODE_API_URL = process.env.NEXT_PUBLIC_ZIPCODE_API_URL ?? "";
+const DEFAULT_ZIPCODE = process.env.NEXT_PUBLIC_REGION_ZIPCODE ?? "";
 const CURRENT_REGION = "CURRENT_REGION";
 
 export async function searchZipcode(zipcode: string): Promise<any[] | null> {
@@ -7,7 +8,7 @@ export async function searchZipcode(zipcode: string): Promise<any[] | null> {
   const cleanZip = zipcode.replace(/\D/g, "");
 
   if (cleanZip.length < 8) {
-    return null;
+    return searchZipcode(DEFAULT_ZIPCODE);
   }
 
   const regions: any[] = [];

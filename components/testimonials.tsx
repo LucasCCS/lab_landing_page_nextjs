@@ -129,7 +129,7 @@ export default function Testimonials() {
               <div className={theme.testimonials.ratingSummary.stars}>
                 {renderStars(Math.round(averageRating))}
               </div>
-              <p className={theme.testimonials.ratingSummary.value}>{averageRating.toFixed(1)}</p>
+              <p className={theme.testimonials.ratingSummary.value}>{averageRating.toFixed(1) || 5}</p>
               <p className={theme.testimonials.ratingSummary.label}>Avaliação média</p>
             </div>
             <div className={theme.testimonials.ratingSummary.divider}></div>

@@ -6,6 +6,7 @@ import { config } from "@/data/config";
 import { createContext, useContext, useEffect, useState } from "react";
 import { calcularMediaAvaliacoes, gerarAvaliacoesAleatorias } from "@/data/reviews";
 import { useUserLocationContext } from "./UserLocationContext";
+import { useLabContactsContext } from "./LabContactsContext";
 
 interface SearchParams {
     zipcode?: string;
@@ -69,8 +70,9 @@ export const RegionProvider = ({ children, zipcode }: RegionProviderProps) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [selectedUnity, setSelectedUnity] = useState<Unidade | null>(null);
+    const  [listContacts, setListContacts] = useState<any>(null);
     const { location, loading: loadingUserLocation, error: errorUserLocation } = useUserLocationContext();
-
+    const { contacts, loading: loadingContacts, error: errorContacts } = useLabContactsContext();
 
     const search = async (params: SearchParams): Promise<Unidade[]> => {
         const { zipcode, cidade, bairro, estado } = params;
@@ -99,9 +101,9 @@ export const RegionProvider = ({ children, zipcode }: RegionProviderProps) => {
                 const avaliacoes = gerarAvaliacoesAleatorias(3, 7);
 
                 const media = calcularMediaAvaliacoes(avaliacoes);
-
-                const phoneFinded = config.companyPhone.find(phone => phone.includes(`(${u.ddd})`)) ?? config.companyPhone[0];
-                const whatsappFinded = config.companyWhatsapp.find(whatsapp => whatsapp.includes(`(${u.ddd})`)) ?? config.companyWhatsapp[0];
+                const defaultDDD = config.defaultDDD;
+                const phoneFinded = config.companyPhone.find((phone: string) => phone.includes(`(${defaultDDD})`)) ?? config.companyPhone[0];
+                const whatsappFinded = config.companyWhatsapp.find((whatsapp: string) => whatsapp.includes(`(${defaultDDD})`)) ?? config.companyWhatsapp[0];
                 setPhone(phoneFinded);
                 setWhatsapp(whatsappFinded);
                 return {
@@ -143,12 +145,18 @@ export const RegionProvider = ({ children, zipcode }: RegionProviderProps) => {
         if (location) {
             zipcode = location.cep ?? "";
         }
-
         search({ zipcode }).catch((err) => {
             console.error(err);
             setError(err?.message ?? "Erro ao buscar região inicial.");
         });
-    }, [zipcode,location]); // eslint-disable-line react-hooks/exhaustive-deps
+
+
+    }, [zipcode,location,contacts]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        config.companyPhone = contacts.phone?.length > 0 ? contacts.phone.map((phone: any) => phone.text) : config.companyPhone;
+        config.companyWhatsapp = contacts.whatsapp?.length > 0 ? contacts.whatsapp.map((whatsapp: any) => whatsapp.text) : config.companyWhatsapp;
+    }, [contacts]);
 
     return (
         <RegionContext.Provider value={{ unities, phone, whatsapp, loading, error, search, selectedUnity, setSelectedUnity }}>
