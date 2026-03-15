@@ -11,7 +11,7 @@ export default function FloatingContactList() {
     const { phone, whatsapp } = useRegion();
 
     const formatPhone = (phone: string) => {
-        return phone.replace(/[^a-zA-Z0-9]/g, "");
+        return '+55' + phone.replace(/[^a-zA-Z0-9]/g, "");
     }
     return (
         <>
