@@ -6,10 +6,12 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react"
 import { getTheme } from "@/lib/get-theme"
 import { useUserLocationContext } from "@/context/UserLocationContext"
 import Image from "next/image"
+import { useRegion } from "@/context/RegionContext"
 
 export default function Footer() {
   const theme = getTheme();
-  const { phone } = useUserLocationContext();
+  const { phone } = useRegion();
+  console.log(phone);
   return (
     <footer id="contato" className={theme.footer.container}>
       <div className="container mx-auto px-4">

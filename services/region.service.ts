@@ -4,11 +4,16 @@ const DEFAULT_ZIPCODE = process.env.NEXT_PUBLIC_REGION_ZIPCODE ?? "";
 const CURRENT_REGION = "CURRENT_REGION";
 
 export async function searchZipcode(zipcode: string): Promise<any[] | null> {
-  // Garante só dígitos
-  const cleanZip = zipcode.replace(/\D/g, "");
+  // Garante só dígitos e evita recursão infinita com fallback inválido.
+  const cleanZip = (zipcode ?? "").replace(/\D/g, "");
+  const fallbackZip = (DEFAULT_ZIPCODE ?? "").replace(/\D/g, "");
 
   if (cleanZip.length < 8) {
-    return searchZipcode(DEFAULT_ZIPCODE);
+    if (fallbackZip.length < 8 || fallbackZip === cleanZip) {
+      console.error("CEP inválido e fallback ausente/inválido.");
+      return null;
+    }
+    return searchZipcode(fallbackZip);
   }
 
   const regions: any[] = [];

@@ -45,7 +45,7 @@ export default function UnidadeQuickSearch() {
       <div className="relative group">
         <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 group-focus-within:text-blue-500 transition-colors" />
         <Input
-          placeholder="Buscar undiade por CEP"
+          placeholder="Buscar unidade por CEP"
           className="pl-12 pr-4 h-14 text-lg border-0 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500/20 rounded-2xl transition-all duration-300"
           value={searchTerm}
           onChange={(e) => handleSearch(e.target.value)}

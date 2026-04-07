@@ -1,14 +1,19 @@
-version: '3.8'
+version: "3.8"
 
 services:
   nextjs:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: node:20-alpine
+    working_dir: /app
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=dev
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+      - WATCHPACK_POLLING=true
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    command: sh -c "npm ci && npm run dev -- --hostname 0.0.0.0 --port 3000"
     restart: unless-stopped
     container_name: lab_landing_page_nextjs
-
