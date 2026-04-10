@@ -32,7 +32,7 @@ export default function AdminServicos() {
       descricao: "Reparo completo de lavadoras de todas as marcas",
       precoMinimo: 80,
       duracaoMedia: "1-2 horas",
-      garantia: "90 dias",
+      garantia: "1 ano",
       ativo: true,
       marcas: ["Brastemp", "Electrolux", "LG", "Samsung"],
       problemas: ["Não liga", "Não centrifuga", "Vazamento", "Ruído excessivo"],
@@ -44,7 +44,7 @@ export default function AdminServicos() {
       descricao: "Troca de filtros e manutenção completa",
       precoMinimo: 100,
       duracaoMedia: "30min - 2 horas",
-      garantia: "90 dias",
+      garantia: "1 ano",
       ativo: true,
       marcas: ["Brastemp", "Electrolux", "LG", "Samsung", "Consul"],
       problemas: ["Não gela", "Vazamento", "Ruído", "Gelo em excesso"],
@@ -56,7 +56,7 @@ export default function AdminServicos() {
       descricao: "Manutenção e reparo especializado",
       precoMinimo: 90,
       duracaoMedia: "1-3 horas",
-      garantia: "90 dias",
+      garantia: "1 ano",
       ativo: true,
       marcas: ["Brastemp", "Electrolux", "LG", "Samsung", "Bosch"],
       problemas: ["Não aquece", "Demora para secar", "Ruído anormal"],
@@ -68,7 +68,7 @@ export default function AdminServicos() {
       descricao: "Instalação completa de sistemas de climatização",
       precoMinimo: 120,
       duracaoMedia: "2-4 horas",
-      garantia: "90 dias",
+      garantia: "1 ano",
       ativo: false,
       marcas: ["LG", "Samsung", "Electrolux", "Midea"],
       problemas: ["Instalação nova", "Reinstalação", "Manutenção"],
@@ -142,7 +142,7 @@ export default function AdminServicos() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="garantia">Garantia</Label>
-                      <Input id="garantia" placeholder="90 dias" defaultValue={editingServico?.garantia} />
+                      <Input id="garantia" placeholder="1 ano" defaultValue={editingServico?.garantia} />
                     </div>
                   </div>
                   <div className="space-y-2">

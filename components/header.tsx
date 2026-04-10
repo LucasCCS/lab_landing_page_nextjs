@@ -7,10 +7,11 @@ import { config } from "@/data/config"
 import { getTheme } from "@/lib/get-theme"
 import Image from "next/image"
 import { useRegion } from "@/context/RegionContext"
+import { formatWhatsapp } from "@/lib/utils"
 
 export default function Header() {
   const theme = getTheme();
-  const { phone } = useRegion();
+  const { phone, whatsapp } = useRegion();
   return (
     <>
       <div className="bg-gray-200 text-gray-300 md:text-left text-center text-xs flex flex-col">
@@ -48,7 +49,7 @@ export default function Header() {
                 </a>
               </div>
               <Button asChild className={theme.header.button}>
-                <Link href="/agendamento">Agendar visita grátis
+                <Link href={formatWhatsapp(whatsapp)} target="_blank">Agendar visita grátis
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>

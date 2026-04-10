@@ -405,7 +405,7 @@ export const midea = {
         }
     },
     footer: {
-        container: 'bg-gray-900 text-white py-16',
+        container: 'bg-white-900 text-black border-t border-gray-200 py-16',
         grid: 'grid md:grid-cols-4 gap-8',
         logo: {
             container: 'flex items-center space-x-2 mb-4',
@@ -419,13 +419,13 @@ export const midea = {
         contact: {
             item: 'flex items-center space-x-2',
             icon: 'w-4 h-4 text-sky-400',
-            text: 'text-gray-300'
+            text: 'text-gray-600'
         },
         services: {
-            list: 'space-y-2 text-gray-300'
+            list: 'space-y-2 text-gray-600'
         },
         copyright: {
-            container: 'border-t border-gray-800 mt-12 pt-8 text-center',
+            container: 'border-t border-gray-200 mt-12 pt-8 text-center',
             text: 'text-gray-400'
         }
     },

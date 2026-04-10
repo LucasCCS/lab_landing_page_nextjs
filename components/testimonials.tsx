@@ -5,6 +5,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Star, Quote } from "lucide-react"
 import { useState, useEffect } from "react"
 import { getTheme } from "@/lib/get-theme"
+import { formatWhatsapp } from "@/lib/utils"
+import { useRegion } from "@/context/RegionContext"
 
 interface Testimonial {
   id: number
@@ -20,6 +22,7 @@ interface Testimonial {
 export default function Testimonials() {
   const theme = getTheme();
   const [currentIndex, setCurrentIndex] = useState(0)
+  const { whatsapp } = useRegion();
 
   const testimonials: Testimonial[] = [
     {
@@ -231,7 +234,8 @@ export default function Testimonials() {
           <p className={theme.testimonials.cta.description}>Junte-se aos nossos clientes satisfeitos</p>
           <div className={theme.testimonials.cta.buttons}>
             <a
-              href="/agendamento"
+              target="_blank"
+              href={formatWhatsapp(whatsapp)}
               className={theme.testimonials.cta.primary}
             >
               Agendar Serviço

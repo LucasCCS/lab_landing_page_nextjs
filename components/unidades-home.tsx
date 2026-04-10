@@ -22,6 +22,7 @@ import Link from "next/link"
 import { unidades } from "@/data/unidades"
 import { getTheme } from "@/lib/get-theme"
 import { useRegion } from "@/context/RegionContext"
+import { formatWhatsapp } from "@/lib/utils"
 
 export default function UnidadesHome() {
   const theme = getTheme();
@@ -203,7 +204,7 @@ export default function UnidadesHome() {
                       size="sm"
                       className={theme.unidadesHome.unitCard.button.primary}
                     >
-                      <Link href={`/agendamento?unidade=${unidade.id}`}>Agendar</Link>
+                      <Link target="_blank" href={formatWhatsapp(unidade.whatsapp)}>Agendar via Whatsapp</Link>
                     </Button>
                     <Button
                       asChild

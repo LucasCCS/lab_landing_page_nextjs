@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button"
 import { Sparkles } from "lucide-react"
 import Link from "next/link"
@@ -6,9 +8,12 @@ import { content } from "@/data/content"
 import { config } from "@/data/config"
 import { getTheme } from "@/lib/get-theme"
 import Image from "next/image"
+import { formatWhatsapp } from "@/lib/utils"
+import { useRegion } from "@/context/RegionContext"
 
 export default function Hero() {
   const theme = getTheme();
+  const { whatsapp } = useRegion();
   return (
     <section style={{ backgroundImage: `url(/themes/${theme.name}/${theme.hero.background.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <section className={`relative min-h-screen bg-gradient-to-br bg-opacity-40 overflow-hidden ${theme.hero.background.color}`}>
@@ -55,7 +60,7 @@ export default function Hero() {
                   size="lg"
                   className={theme.button.default + ' hover:scale-105'}
                 >
-                  <Link href="/agendamento" className="flex items-center">
+                  <Link target="_blank" href={formatWhatsapp(whatsapp)} className="flex items-center">
                     Agendar Agora
                     <Sparkles className="w-4 h-4 ml-2" />
                   </Link>

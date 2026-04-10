@@ -40,7 +40,7 @@ export default function ServicosDetalhados() {
       category: "eletrodomesticos",
       price: "Grátis",
       duration: "1-2 horas",
-      warranty: "90 dias",
+      warranty: "1 ano",
       rating: 4.9,
       reviews: 245,
       features: [
@@ -68,7 +68,7 @@ export default function ServicosDetalhados() {
       category: "eletrodomesticos",
       price: "Grátis",
       duration: "1-3 horas",
-      warranty: "90 dias",
+      warranty: "1 ano",
       rating: 4.8,
       reviews: 189,
       features: [
@@ -96,7 +96,7 @@ export default function ServicosDetalhados() {
       category: "eletrodomesticos",
       price: "Grátis",
       duration: "1-2 horas",
-      warranty: "90 dias",
+      warranty: "1 ano",
       rating: 4.9,
       reviews: 312,
       features: [
@@ -124,7 +124,7 @@ export default function ServicosDetalhados() {
       category: "eletrodomesticos",
       price: "Grátis",
       duration: "1-2 horas",
-      warranty: "90 dias",
+      warranty: "1 ano",
       rating: 4.9,
       reviews: 312,
       features: [
@@ -152,7 +152,7 @@ export default function ServicosDetalhados() {
       category: "eletrodomesticos",
       price: "Grátis",
       duration: "30min - 2 horas",
-      warranty: "90 dias",
+      warranty: "1 ano",
       rating: 4.9,
       reviews: 312,
       features: [
@@ -198,7 +198,7 @@ export default function ServicosDetalhados() {
           { icon: Wrench, value: "6+", label: "Tipos de Serviços", color: "blue" },
           { icon: Award, value: "1000+", label: "Clientes Atendidos", color: "green" },
           { icon: Clock, value: "24h", label: "Atendimento", color: "purple" },
-          { icon: Shield, value: "90 dias", label: "Garantia", color: "orange" },
+          { icon: Shield, value: "1 ano", label: "Garantia", color: "orange" },
         ].map((stat, index) => (
           <div key={index} className="group relative">
             <div className={theme.servicosDetalhados.statsCard.glow}></div>
@@ -412,7 +412,7 @@ export default function ServicosDetalhados() {
                 },
                 {
                   question: "Como funciona a garantia?",
-                  answer: "Oferecemos 90 dias de garantia para todos os serviços realizados e peças trocadas.",
+                  answer: "Oferecemos 1 ano de garantia para todos os serviços realizados e peças trocadas.",
                 },
                 {
                   question: "Atendem todas as marcas?",

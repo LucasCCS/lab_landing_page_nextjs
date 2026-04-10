@@ -38,7 +38,7 @@ export const services = {
         {
           icon: Shield,
           title: "Garantia Estendida",
-          description: "Todos os serviços com garantia de 90 dias para sua tranquilidade",
+          description: "Todos os serviços com garantia de 1 ano para sua tranquilidade",
         },
     ]
 }
