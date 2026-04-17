@@ -40,6 +40,24 @@ export default function RootLayout({
         <meta name="author" content={config.author} />
         <meta name="robots" content="index, follow" />
         <Script
+          id="gtag-script"
+          strategy="afterInteractive"
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${config.googleAdsId}`}
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${config.googleAdsId}');
+            `,
+          }}
+        />
+        <Script
           id="gtm-script"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{

@@ -13,6 +13,7 @@ export const config = {
   brand: process.env.NEXT_PUBLIC_BRAND,
   product: process.env.NEXT_PUBLIC_PRODUCT,
   googleTagManagerId: process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
+  googleAdsId: process.env.NEXT_PUBLIC_GOOGLE_ADS_ID,
   workingHours: [
     'Atendimento 24 horas',
   ],
