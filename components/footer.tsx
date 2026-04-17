@@ -18,7 +18,7 @@ export default function Footer() {
         <div className={theme.footer.grid}>
           <div>
             <div className={theme.footer.logo.container}>
-              <Image src={`/themes/${theme.name}/${theme.logoFooter}`} alt={config.title || ""} width={150} height={150} />
+              <Image src={`/themes/${theme.name}/${theme.logoFooter}`} alt={config.title || ""} width={250} height={250} />
             </div>
             <p className={theme.footer.logo.description}>
               Assistência técnica {config.product} {config.brand} com qualidade e garantia.

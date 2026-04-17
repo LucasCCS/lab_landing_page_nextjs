@@ -2,11 +2,11 @@
 export const samsung = {
     name: 'samsung',
     logo: {
-        image: 'logo.png',
-        width: 150,
-        height: 150,
+        image: 'logo.svg',
+        width: 250,
+        height: 250,
     },
-    logoFooter: 'logo_footer.png',
+    logoFooter: 'logo_footer.svg',
     floatingContactList: {
         button: 'cursor-pointer transition-all duration-300 hover:scale-115 rounded-full p-3 flex flex-col gap-4 shadow-lg',
         whatsapp: 'bg-green-500 hover:bg-green-600',
