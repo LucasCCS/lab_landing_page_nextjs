@@ -20,7 +20,9 @@ const securityHeaders = [
         https://www.google.com.br
         https://googleads.g.doubleclick.net
         https://viacep.com.br
-        https://website-management-api.watesistema.com.br;
+        https://website-management-api.watesistema.com.br
+        https://watesistema.com.br
+        https://*.watesistema.com.br;
 
       img-src 'self' data:
         https://www.google-analytics.com
