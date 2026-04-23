@@ -1,27 +1,37 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const securityHeaders = [
   {
     key: "Content-Security-Policy",
     value: `
       default-src 'self';
 
-      script-src 'self' 'unsafe-inline'
+      script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""}
         https://www.googletagmanager.com
-        https://www.google-analytics.com;
+        https://www.google-analytics.com
+        https://googleads.g.doubleclick.net;
 
       connect-src 'self'
         https://www.google-analytics.com
+        https://www.googletagmanager.com
+        https://www.google.com
+        https://googleads.g.doubleclick.net
         https://viacep.com.br
         https://website-management-api.watesistema.com.br;
 
       img-src 'self' data:
-        https://www.google-analytics.com;
-
-      style-src 'self' 'unsafe-inline';
+        https://www.google-analytics.com
+        https://www.google.com
+        https://googleads.g.doubleclick.net
+        https://pagead2.googlesyndication.com;
 
       frame-src
-        https://www.googletagmanager.com;
+        https://www.googletagmanager.com
+        https://td.doubleclick.net;
+
+      style-src 'self' 'unsafe-inline';
 
       object-src 'none';
       base-uri 'self';
