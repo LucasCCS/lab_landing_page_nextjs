@@ -17,13 +17,15 @@ const securityHeaders = [
         https://www.google-analytics.com
         https://www.googletagmanager.com
         https://www.google.com
+        https://www.google.com.br
         https://googleads.g.doubleclick.net
         https://viacep.com.br
         https://website-management-api.watesistema.com.br;
 
       img-src 'self' data:
         https://www.google-analytics.com
-        https://www.google.com
+        https://*.google.com
+        https://*.google.com.br
         https://googleads.g.doubleclick.net
         https://pagead2.googlesyndication.com;
 
@@ -41,7 +43,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
+  output: "standalone",
 
   async headers() {
     return [
