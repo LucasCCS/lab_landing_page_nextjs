@@ -132,7 +132,7 @@ export default function AgendamentoForm() {
       telefone: "",
       email: "",
       garantia: "",
-      marca: process.env.NEXT_PUBLIC_BRAND ?? "",
+      marca: process.env.NEXT_PUBLIC_SCHEDULE_BRAND ?? "",
       origem: "",
       id_empresa: process.env.NEXT_PUBLIC_ID_EMPRESA ?? "",
       agendamento_id: null,
